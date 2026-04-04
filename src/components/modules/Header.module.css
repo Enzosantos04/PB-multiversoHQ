@@ -1,0 +1,108 @@
+.header {
+    display: grid;
+    gap: 0.7rem;
+    padding: 12px 14px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-radius: 12px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 20px;
+    color: #38bdf8;
+    text-align: center;
+}
+
+.header nav {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    justify-content: flex-start;
+    scrollbar-width: thin;
+}
+
+.header nav a {
+    text-decoration: none;
+    color: #e2e8f0;
+    font-size: 14px;
+    transition: 0.3s;
+    position: relative;
+    white-space: nowrap;
+}
+
+.header nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #38bdf8;
+    left: 0;
+    bottom: -4px;
+    transition: 0.3s;
+}
+
+.header nav a:hover {
+    color: #38bdf8;
+}
+
+.header nav a:hover::after {
+    width: 100%;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+.search input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: #1e293b;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.search input:focus {
+    box-shadow: 0 0 0 2px #38bdf8;
+}
+
+@media (min-width: 768px) {
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 16px 32px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .search {
+        flex: 1;
+        padding: 0 20px;
+    }
+
+    .search input {
+        max-width: 500px;
+    }
+
+    .header nav {
+        gap: 20px;
+        overflow: visible;
+        justify-content: flex-end;
+        padding-bottom: 0;
+    }
+}
