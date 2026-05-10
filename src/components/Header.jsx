@@ -1,12 +1,16 @@
 import styles from "./modules/Header.module.css";
 
-function Header() {
+function Header({ onChange, value }) {
   return (
     <header className={styles.header}>
       <h1>MultiversoHQ</h1>
 
       <section className={styles.search}>
-        <input placeholder="Buscar quadrinhos, herois ou sagas..." />
+        <input
+          placeholder="Buscar quadrinhos, herois ou sagas..."
+          value={value}
+          onChange={onChange}
+        />
       </section>
 
       <nav aria-label="Principal">
