@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "../components/modules/Home.module.css";
 import CardQuadrinho from "../components/CardQuadrinho.jsx";
-import Header from "../components/Header";
+import Header from "../components/Header.jsx";
+import Banner from "../components/Banner.jsx";
+import Footer from "../components/Footer.jsx";
 
 const mykey = import.meta.env.VITE_COMIC_VINE_API_KEY;
 
 export default function Home() {
   const [quadrinho, setQuadrinho] = useState([]);
   const [quadrinhoDc, setQuadrinhoDc] = useState([]);
-  const [teste, setTeste] = useState("");
+  const [teste, setTeste] = useState([]);
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -77,8 +79,7 @@ export default function Home() {
         throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
 
-      const teste = data.results
-        .sort(() => 0.5 - Math.random())
+      const resultados = data.results
         .map((item) => ({
           id: item.id,
           titulo: item.name,
@@ -87,7 +88,7 @@ export default function Home() {
           description: item.description,
           preco: "29,90",
         }));
-      setTeste(teste);
+      setTeste(resultados);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -108,8 +109,9 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Header onChange={handleChange} value={value} />
+      <Banner />
       <section className={styles.hero}>
-        <h2>Explore os melhores quadrinhos do momento</h2>
+        <h2>Marvel</h2>
         <div className={styles.carrossel}>
           {quadrinho.map((item) => (
             <CardQuadrinho
@@ -124,7 +126,7 @@ export default function Home() {
         </div>
       </section>
       <section className={styles.hero}>
-        <h2>Explore os melhores quadrinhos do momento</h2>
+        <h2>DC Comics</h2>
         <div className={styles.carrossel}>
           {quadrinhoDc.map((item) => (
             <CardQuadrinho
@@ -138,6 +140,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

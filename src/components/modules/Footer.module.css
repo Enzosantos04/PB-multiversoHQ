@@ -1,68 +1,201 @@
 .footer {
-    margin-top: auto;
-    border-top: 1px solid #1e3a8a;
-    background:
-        linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(8, 16, 34, 0.96)),
-        radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 45%);
-    border-radius: 10px;
-    padding: 0.9rem 1rem;
+  background: #fdfdfd;
+  border-top: 3px solid #dc2626;
+  padding: 0;
+  margin-top: 5rem;
+  color: #1f2937;
+  font-family: inherit;
 }
 
-.inner {
-    display: flex;
+/* Newsletter Section */
+.newsletter {
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+  color: white;
+  padding: 2.5rem 1.5rem;
+}
+
+.newsletterInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.newsletterContent h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+}
+
+.newsletterContent p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.newsletterForm input {
+  flex: 1;
+  padding: 0.875rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+.newsletterForm button {
+  padding: 0.875rem 2rem;
+  background: #1f2937;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.newsletterForm button:hover {
+  background: #000;
+}
+
+/* Main Footer Content */
+.mainFooter {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+}
+
+.column h4 {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #dc2626;
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.column ul li a {
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: color 0.2s ease;
+}
+
+.column ul li a:hover {
+  color: #dc2626;
+  text-decoration: underline;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.socialIcons a {
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1f2937;
+  transition: all 0.3s ease;
+}
+
+.socialIcons a:hover {
+  background: #dc2626;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.socialIcons img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Bottom Bar */
+.bottomBar {
+  background: #f3f4f6;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.bottomInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.bottomInner img {
+  height: 60px;
+  width: auto;
+  margin-bottom: 0.5rem;
+}
+
+.corporateInfo {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.paymentMethods {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.paymentMethods span {
+  font-size: 1.5rem;
+  color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+  .newsletterInner {
     flex-direction: column;
-    gap: 0.65rem;
+  }
+  
+  .newsletterForm {
+    flex-direction: column;
+  }
+  
+  .mainFooter {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
 }
 
-.brand {
-    margin: 0;
-    color: #7dd3fc;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem 0.85rem;
-}
-
-.nav a {
-    color: #cbd5e1;
-    text-decoration: none;
-    font-size: 0.88rem;
-}
-
-.nav a:hover {
-    color: #7dd3fc;
-}
-
-.copy {
-    margin: 0.8rem 0 0;
-    padding-top: 0.65rem;
-    border-top: 1px solid rgba(59, 130, 246, 0.3);
-    color: #93c5fd;
-    font-size: 0.85rem;
-}
-
-@media (min-width: 768px) {
-    .footer {
-        padding: 1rem 1.25rem;
-    }
-
-    .inner {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .nav {
-        gap: 1rem;
-    }
-
-    .copy {
-        font-size: 0.9rem;
-    }
+@media (max-width: 480px) {
+  .mainFooter {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,24 +1,29 @@
+import { Link } from "react-router-dom";
 import styles from "./modules/Header.module.css";
+import logo from "../images/logo.png";
 
-function Header({ onChange, value }) {
+function Header({ onChange = () => {}, value = "" }) {
   return (
     <header className={styles.header}>
-      <h1>MultiversoHQ</h1>
+      <Link to="/">
+        <img src={logo} alt="Logo" />
+      </Link>
 
       <section className={styles.search}>
         <input
-          placeholder="Buscar quadrinhos, herois ou sagas..."
+          type="text"
+          placeholder="Pesquisar quadrinhos..."
           value={value}
           onChange={onChange}
         />
       </section>
 
       <nav aria-label="Principal">
-        <a href="/">Home</a>
-        <a href="#">Catalogo</a>
-        <a href="#">Planos</a>
-        <a href="#">Contato</a>
-        <a href="/login">Login</a>
+        <Link to="/">Home</Link>
+        <Link to="#">Catalogo</Link>
+        <Link to="#">Planos</Link>
+        <Link to="#">Contato</Link>
+        <Link to="/login">Login</Link>
       </nav>
     </header>
   );

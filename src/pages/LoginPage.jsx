@@ -1,6 +1,6 @@
-import Header from "../components/Header";
-import LoginForm from "../components/LoginForm";
-import Footer from "../components/Footer";
+import Header from "../components/Header.jsx";
+import LoginForm from "../components/LoginForm.jsx";
+import Footer from "../components/Footer.jsx";
 import styles from "../components/modules/LoginPage.module.css";
 
 function LoginPage() {

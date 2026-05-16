@@ -1,0 +1,298 @@
+.bannerContainer {
+  width: 100%;
+  margin: 0 0 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.slideWrapper {
+  outline: none;
+}
+
+.slide {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.slide:hover {
+  transform: scale(1.01);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.slide:hover .slideImage {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.8) 35%,
+    rgba(0, 0, 0, 0.12) 55%,
+    rgba(220, 38, 38, 0.25) 100%
+  );
+  z-index: 1;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3rem;
+  z-index: 2;
+}
+
+.contentInner {
+  max-width: 600px;
+  animation: slideInFromLeft 0.8s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.badgeMarvel,
+.badgeDc,
+.badgeBoth,
+.badgeSpecial {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  background: #ffffff;
+  color: #dc2626;
+  border: 2px solid #dc2626;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #dc2626;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #111111;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: #dc2626;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid #dc2626;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.12);
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.ctaButton:active {
+  transform: translateY(0);
+}
+
+.arrow {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.ctaButton:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* DOTS */
+
+.bannerContainer :global(.slick-dots) {
+  bottom: 2rem;
+  z-index: 10;
+}
+
+.bannerContainer :global(.slick-dots li button:before) {
+  font-size: 12px;
+  color: white;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.bannerContainer
+  :global(.slick-dots li.slick-active button:before) {
+  opacity: 1;
+  color: #dc2626;
+}
+
+.bannerContainer
+  :global(.slick-dots li:hover button:before) {
+  opacity: 0.8;
+}
+
+/* SETAS */
+
+.bannerContainer :global(.slick-prev),
+.bannerContainer :global(.slick-next) {
+  width: 50px;
+  height: 50px;
+  z-index: 15;
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #dc2626;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.bannerContainer:hover :global(.slick-prev),
+.bannerContainer:hover :global(.slick-next) {
+  opacity: 1;
+}
+
+.bannerContainer :global(.slick-prev:hover),
+.bannerContainer :global(.slick-next:hover) {
+  background: #dc2626;
+}
+
+.bannerContainer :global(.slick-prev) {
+  left: 2rem;
+}
+
+.bannerContainer :global(.slick-next) {
+  right: 2rem;
+}
+
+.bannerContainer :global(.slick-prev:before),
+.bannerContainer :global(.slick-next:before) {
+  font-size: 30px;
+  opacity: 1;
+  color: white;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1024px) {
+  .slide {
+    height: 400px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+  }
+
+  .content {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide {
+    height: 350px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+
+  .ctaButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .bannerContainer :global(.slick-prev),
+  .bannerContainer :global(.slick-next) {
+    width: 40px;
+    height: 40px;
+  }
+
+  .bannerContainer :global(.slick-prev) {
+    left: 1rem;
+  }
+
+  .bannerContainer :global(.slick-next) {
+    right: 1rem;
+  }
+
+  .bannerContainer :global(.slick-prev:before),
+  .bannerContainer :global(.slick-next:before) {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    height: 300px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+  }
+
+  .badgeMarvel,
+  .badgeDc,
+  .badgeBoth,
+  .badgeSpecial {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+  }
+}
