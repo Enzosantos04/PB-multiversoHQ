@@ -24,14 +24,14 @@ const CarouselRow = ({ section, items, loading }) => {
           {section.label}
         </h2>
         <div className={styles.arrows}>
-          <button className={styles.arrowBtn} onClick={() => scroll(-1)} aria-label="scroll left">‹</button>
-          <button className={styles.arrowBtn} onClick={() => scroll(1)} aria-label="scroll right">›</button>
+          <button className={styles.arrowBtn} onClick={() => scroll(-2)} aria-label="scroll left">‹</button>
+          <button className={styles.arrowBtn} onClick={() => scroll(2)} aria-label="scroll right">›</button>
         </div>
       </div>
 
       <div className={styles.rowWrapper} ref={rowRef}>
         {loading
-          ? Array.from({ length: 6 }).map((_, i) => <div key={i} className={styles.skeleton} />)
+          ? Array.from({ length: 4 }).map((_, i) => <div key={i} className={styles.skeleton} />)
           : items.map((comic) => (
               <div
                 key={comic.id}
@@ -60,6 +60,9 @@ export default function CatalogPage() {
   const handleChange = (e) => setSearchTerm(e.target.value);
   const isSearching = searchTerm.length > 0;
 
+    const rowRef = useRef(null);
+    const scroll = (dir) => rowRef.current?.scrollBy({ left: dir * 280, behavior: "smooth" });
+
   return (
     <div className={styles.page}>
       <Header onChange={handleChange} value={searchTerm} />
@@ -80,20 +83,30 @@ export default function CatalogPage() {
               <h2 className={styles.sectionTitle} style={{ color: "#F5A623" }}>
                 Resultados para "{searchTerm}"
               </h2>
-            </div>
-            <div className={styles.rowWrapper}>
-              {searchResults.map((comic) => (
-                <div key={comic.id} className={styles.cardWrapper} style={{ "--accent": "#F5A623" }}>
-                  <CardQuadrinho
-                    id={comic.id}
-                    titulo={comic.titulo}
-                    imagem={comic.imagem}
-                    categoria={comic.categoria}
-                    preco={undefined}
-                  />
+                <div className={styles.arrows}>
+                    <button className={styles.arrowBtn} onClick={() => scroll(-2)} aria-label="scroll left">‹</button>
+                    <button className={styles.arrowBtn} onClick={() => scroll(2)} aria-label="scroll right">›</button>
                 </div>
-              ))}
             </div>
+              <div className={styles.rowWrapper} ref={rowRef}>
+                  {loading
+                      ? Array.from({ length: 4 }).map((_, i) => <div key={i} className={styles.skeleton} />)
+                      : searchResults.map((comic) => (
+                          <div
+                              key={comic.id}
+                              className={styles.cardWrapper}
+                              style={{ "--accent": "#F5A623" }}
+                          >
+                              <CardQuadrinho
+                                  id={comic.id}
+                                  titulo={comic.titulo}
+                                  imagem={comic.imagem}
+                                  categoria={comic.categoria}
+                                  preco={undefined}
+                              />
+                          </div>
+                      ))}
+              </div>
           </div>
         ) : (
           SECTIONS.map((section) => (

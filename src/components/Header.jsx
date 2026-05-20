@@ -32,6 +32,7 @@ function Header({ onChange = () => {}, value = "" }) {
         <Link to="#">Planos</Link>
         <Link to="/contato">Contato</Link>
         <Link to="/login">Login</Link>
+          <Link to="#">Carrinho</Link>
         <button 
           onClick={toggleTheme} 
           className={styles.themeToggle}

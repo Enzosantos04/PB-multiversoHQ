@@ -16,20 +16,19 @@ function LoginPage() {
             Descubra historias novas toda semana, com entrega rapida e acervo de
             colecionador.
           </p>
-
-          <div className={styles.actions}>
-            <button className={styles.primaryCta} type="button">
-              Quero meu acesso
-            </button>
-            <button className={styles.secondaryCta} type="button">
-              Ver beneficios
-            </button>
-          </div>
         </div>
       </section>
 
       <main className={styles.loginSection}>
         <LoginForm />
+          <div className={styles.actions}>
+              <button className={styles.primaryCta} type="button">
+                  Cadastro
+              </button>
+              <button className={styles.secondaryCta} type="button">
+                  Logins
+              </button>
+          </div>
       </main>
 
       <Footer />

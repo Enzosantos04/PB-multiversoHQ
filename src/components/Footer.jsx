@@ -28,7 +28,7 @@ function Footer() {
           <h4>Suas Compras</h4>
           <ul>
             <li><a href="#">Meus Pedidos</a></li>
-            <li><a href="#">Prazos de Entrega</a></li>
+            {/*<li><a href="#">Prazos de Entrega</a></li>*/}
             <li><a href="#">Formas de Pagamento</a></li>
             <li><a href="#">Trocas e Devoluções</a></li>
             <li><a href="#">FAQ</a></li>
@@ -41,7 +41,7 @@ function Footer() {
             <li><a href="#">Termos de Uso</a></li>
             <li><a href="#">Regulamentos</a></li>
             <li><a href="#">Privacidade</a></li>
-            <li><a href="#">Gerenciar Cookies</a></li>
+            {/*<li><a href="#">Gerenciar Cookies</a></li>*/}
           </ul>
         </div>
 
@@ -51,7 +51,7 @@ function Footer() {
             <li><a href="#">Sobre o Grupo</a></li>
             <li><a href="#">Trabalhe Conosco</a></li>
             <li><Link to="/contato">Contato</Link></li>
-            <li><a href="#">Transparência</a></li>
+            {/*<li><a href="#">Transparência</a></li>*/}
           </ul>
           <div className={styles.socialIcons}>
             <a href="#" aria-label="Instagram"><img src={instagramIcon} alt="Instagram" /></a>
@@ -65,8 +65,8 @@ function Footer() {
           <ul>
             <li><a href="#">Planos Mensais</a></li>
             <li><a href="#">Clube de Vantagens</a></li>
-            <li><a href="#">Assinaturas Marvel</a></li>
-            <li><a href="#">Assinaturas DC</a></li>
+            {/*<li><a href="#">Assinaturas Marvel</a></li>*/}
+            {/*<li><a href="#">Assinaturas DC</a></li>*/}
           </ul>
         </div>
       </div>
