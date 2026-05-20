@@ -1,0 +1,87 @@
+.container {
+  min-height: 100vh;
+  background: var(--bg-color);
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.07) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 25%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.05) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: pulse 4s ease-in-out infinite 2s;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.1); }
+}
+
+.hero {
+  position: relative;
+  z-index: 10;
+  max-width: 1280px;
+  margin: 0 auto;
+  /* top padding accounts for the fixed header (~64px) */
+  padding: 4.5rem 1.5rem 3rem;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.carrossel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+  /* fixes card height misalignment */
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .carrossel {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carrossel {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}

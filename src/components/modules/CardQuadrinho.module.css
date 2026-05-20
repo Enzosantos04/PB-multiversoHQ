@@ -7,16 +7,19 @@
   background: var(--card-bg);
   border: 1px solid rgba(239, 68, 68, 0.15);
   backdrop-filter: blur(12px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--shadow, rgba(0,0,0,0.1));
+  /* key fix: uniform height across grid cells */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .cardQuadrinho:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.15),
-    0 0 30px rgba(239, 68, 68, 0.3),
-    0 0 30px rgba(220, 38, 38, 0.2);
-  border-color: rgba(239, 68, 68, 0.3);
+    0 16px 32px var(--shadow, rgba(0,0,0,0.15)),
+    0 0 24px rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.35);
 }
 
 .cardQuadrinho::before {
@@ -29,53 +32,63 @@
   background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
 .cardQuadrinho:hover::before {
   opacity: 1;
 }
 
+/* Fixed aspect ratio so every card image is same height */
 .cardImagem {
   width: 100%;
-  aspect-ratio: 2/3;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
+  display: block;
+  flex-shrink: 0;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cardQuadrinho:hover .cardImagem {
-  transform: scale(1.1);
+  transform: scale(1.06);
 }
 
 .cardInfo {
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(8px);
+  padding: 0.875rem 1rem 1rem;
+  background: var(--card-bg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: background 0.3s ease;
 }
 
 .cardTitulo {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-color);
-  margin: 0 0 0.5rem 0;
-  line-height: 1.4;
+  margin: 0;
+  line-height: 1.35;
   display: -webkit-box;
-  line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .cardCategoria {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: #9ca3af;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .cardPreco {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   background: linear-gradient(90deg, #dc2626, #ef4444);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0;
+  margin: 0.25rem 0 0;
 }
