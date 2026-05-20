@@ -10,12 +10,11 @@ const mykey = import.meta.env.VITE_COMIC_VINE_API_KEY;
 export default function Home() {
   const [quadrinho, setQuadrinho] = useState([]);
   const [quadrinhoDc, setQuadrinhoDc] = useState([]);
-  const [teste, setTeste] = useState([]);
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    getData(value);
-  }, [value]);
+    getData();
+  }, []);
 
   async function getData() {
     try {
@@ -36,7 +35,7 @@ export default function Home() {
       const apenasDc = data.results.filter((item) => item.publisher?.id === 10);
 
       const quadrinhosFormatados = apenasMarvel
-        .slice(0, 5) // pega 5 aleatórios
+        .slice(0, 5)
         .map((item) => ({
           id: item.id,
           titulo: item.name,
@@ -47,7 +46,7 @@ export default function Home() {
         }));
 
       const quadrinhosDcFormatados = apenasDc
-        .slice(0, 5) // pega 5 aleatórios
+        .slice(0, 5)
         .map((item) => ({
           id: item.id,
           titulo: item.name,
@@ -64,52 +63,15 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    getDataSearchBar(value);
-  }, [value]);
-
-  async function getDataSearchBar(filter) {
-    try {
-      const apiUrl = `https://comicvine.gamespot.com/api/volumes/?api_key=${mykey}&format=json&field_list=id,name,image,publisher,description&filter=name:${filter}`;
-      const response = await fetch(
-        `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`,
-      );
-
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      const data = await response.json();
-
-      const resultados = data.results
-        .map((item) => ({
-          id: item.id,
-          titulo: item.name,
-          imagem: item.image?.medium_url || item.image?.original_url,
-          categoria: item.publisher?.name || "Quadrinhos",
-          description: item.description,
-          preco: "29,90",
-        }));
-      setTeste(resultados);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-
   const handleChange = (e) => {
-    console.log("Digitando:", e.target.value);
     setValue(e.target.value);
   };
-  const catalogo = [...teste];
-
-  const quadrinhosInput = catalogo.filter((item) =>
-    item.titulo?.toLowerCase().includes(value.toLowerCase()),
-  );
-  console.log("VALOR DA BUSCA:", value);
-  console.log("RESULTADO FILTRADO:", quadrinhosInput);
 
   return (
     <div className={styles.container}>
       <Header onChange={handleChange} value={value} />
       <Banner />
+      
       <section className={styles.hero}>
         <h2>Marvel</h2>
         <div className={styles.carrossel}>
@@ -125,6 +87,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+
       <section className={styles.hero}>
         <h2>DC Comics</h2>
         <div className={styles.carrossel}>
@@ -140,6 +103,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      
       <Footer />
     </div>
   );

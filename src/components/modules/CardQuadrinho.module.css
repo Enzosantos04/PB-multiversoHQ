@@ -4,7 +4,7 @@
   border-radius: 0.75rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(249, 250, 251, 0.95) 100%);
+  background: var(--card-bg);
   border: 1px solid rgba(239, 68, 68, 0.15);
   backdrop-filter: blur(12px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -48,14 +48,14 @@
 
 .cardInfo {
   padding: 1rem;
-  background: linear-gradient(180deg, rgba(249, 250, 251, 0.7) 0%, rgba(243, 244, 246, 0.9) 100%);
+  background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(8px);
 }
 
 .cardTitulo {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-color);
   margin: 0 0 0.5rem 0;
   line-height: 1.4;
   display: -webkit-box;

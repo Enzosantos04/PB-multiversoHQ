@@ -1,10 +1,11 @@
 .footer {
-  background: #fdfdfd;
+  background: var(--bg-color);
   border-top: 3px solid #dc2626;
   padding: 0;
   margin-top: 5rem;
-  color: #1f2937;
+  color: var(--text-color);
   font-family: inherit;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Newsletter Section */
@@ -51,6 +52,9 @@
   border-radius: 0.5rem;
   font-size: 1rem;
   outline: none;
+  background: white;
+  color: #1f2937;
+  text-align: center;
 }
 
 .newsletterForm button {
@@ -97,14 +101,16 @@
 }
 
 .column ul li a {
-  color: #4b5563;
+  color: var(--text-color);
+  opacity: 0.8;
   text-decoration: none;
   font-size: 0.9375rem;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .column ul li a:hover {
   color: #dc2626;
+  opacity: 1;
   text-decoration: underline;
 }
 
@@ -117,12 +123,12 @@
 .socialIcons a {
   width: 40px;
   height: 40px;
-  background: #ffffff;
+  background: var(--input-bg);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1f2937;
+  color: var(--text-color);
   transition: all 0.3s ease;
 }
 
@@ -140,9 +146,9 @@
 
 /* Bottom Bar */
 .bottomBar {
-  background: #f3f4f6;
+  background: var(--input-bg);
   padding: 2rem 1.5rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid rgba(239, 68, 68, 0.1);
 }
 
 .bottomInner {
@@ -163,7 +169,8 @@
 
 .corporateInfo {
   font-size: 0.8125rem;
-  color: #6b7280;
+  color: var(--text-color);
+  opacity: 0.6;
   line-height: 1.6;
 }
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./modules/Footer.module.css";
 import logo from "../images/logo.png";
 import facebookIcon from "../images/Facebook_icon.png";
@@ -49,7 +50,7 @@ function Footer() {
           <ul>
             <li><a href="#">Sobre o Grupo</a></li>
             <li><a href="#">Trabalhe Conosco</a></li>
-            <li><a href="#">Contato</a></li>
+            <li><Link to="/contato">Contato</Link></li>
             <li><a href="#">Transparência</a></li>
           </ul>
           <div className={styles.socialIcons}>
