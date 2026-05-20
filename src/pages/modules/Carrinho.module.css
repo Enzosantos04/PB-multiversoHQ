@@ -1,0 +1,463 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease;
+}
+
+.main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 3rem;
+  width: 100%;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Mock user switcher ---- */
+.userSwitcher {
+  background: var(--card-bg);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.userSwitcherLabel {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3af;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.userBtns {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.userBtn {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.625rem;
+  border: 1.5px solid rgba(239, 68, 68, 0.2);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.userBtn:hover {
+  border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.userBtnActive {
+  border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.userBtnName {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.userBtnPlano {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* ---- Active user banner ---- */
+.usuarioAtivo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.usuarioInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.usuarioAvatar { font-size: 2rem; }
+
+.usuarioNome {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.usuarioStatus {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.freteGratis {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.75rem;
+}
+
+.fretePago {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+/* ---- Empty cart ---- */
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 0;
+}
+
+.emptyIcon { font-size: 4rem; }
+
+.emptyCart p {
+  font-size: 1.2rem;
+  color: #9ca3af;
+}
+
+/* ---- Layout: items + resumo ---- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ---- Item card ---- */
+.itemCard {
+  display: flex;
+  gap: 1rem;
+  background: var(--card-bg);
+  border: 1px solid rgba(239, 68, 68, 0.12);
+  border-radius: 0.875rem;
+  padding: 1rem;
+  margin-bottom: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.itemCard:hover { border-color: rgba(239, 68, 68, 0.3); }
+
+.itemImagem {
+  width: 70px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.itemTitulo {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.itemAcao {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.acaoAluguel {
+  background: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+}
+
+.acaoCompra {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+}
+
+.descontoTag {
+  font-size: 0.72rem;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.itemPrecoUnit {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.itemControls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.qtdControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.qtdControls button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #dc2626;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.qtdControls button:hover { background: rgba(220, 38, 38, 0.15); }
+
+.qtdControls span {
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 20px;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.itemTotal {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.btnRemover {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.btnRemover:hover { opacity: 1; }
+
+.btnLimpar {
+  background: none;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+
+.btnLimpar:hover { background: rgba(220, 38, 38, 0.07); }
+
+/* ---- Resumo ---- */
+.resumo {
+  background: var(--card-bg);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: sticky;
+  top: 80px;
+}
+
+.resumoTitulo {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 1.25rem;
+  color: var(--text-color);
+}
+
+.resumoLinha {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.925rem;
+  color: var(--text-color);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.07);
+}
+
+.resumoDesconto {
+  font-size: 0.78rem;
+  color: #16a34a;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.07);
+}
+
+.resumoLogin {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.07);
+  line-height: 1.5;
+}
+
+.resumoLogin a {
+  color: #dc2626;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.resumoTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--text-color);
+  padding: 1rem 0 0.75rem;
+}
+
+.gratis {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.btnFinalizar {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.btnFinalizar:hover {
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4);
+  transform: translateY(-2px);
+}
+
+.btnVoltar {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+  color: white;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.btnVoltar:hover {
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ---- Success screen ---- */
+.successWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem;
+}
+
+.successBox {
+  background: var(--card-bg);
+  border: 1px solid rgba(22, 163, 74, 0.3);
+  border-radius: 1.25rem;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.successIcon { font-size: 4rem; }
+
+.successBox h2 {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.successBox p {
+  color: #9ca3af;
+  margin: 0;
+}
+
+.totalConfirmado {
+  font-size: 1.1rem !important;
+  color: var(--text-color) !important;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .resumo {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .main { padding: 4.5rem 1rem 2rem; }
+
+  .itemCard { flex-wrap: wrap; }
+
+  .itemControls {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+}

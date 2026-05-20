@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import styles from "./modules/Header.module.css";
 import logo from "../images/logo.png";
 import SearchBar from "./SearchBar";
+import { useComics } from "../context/ComicsContext";
 
 function Header({ onChange = () => {}, value = "" }) {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const { totalItens } = useComics();
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -13,7 +15,7 @@ function Header({ onChange = () => {}, value = "" }) {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   return (
@@ -32,9 +34,14 @@ function Header({ onChange = () => {}, value = "" }) {
         <Link to="/planos">Planos</Link>
         <Link to="/contato">Contato</Link>
         <Link to="/login">Login</Link>
-          <Link to="/carrinho">Carrinho</Link>
-        <button 
-          onClick={toggleTheme} 
+        <Link to="/carrinho" className={styles.cartLink}>
+          🛒
+          {totalItens > 0 && (
+            <span className={styles.cartBadge}>{totalItens}</span>
+          )}
+        </Link>
+        <button
+          onClick={toggleTheme}
           className={styles.themeToggle}
           aria-label="Alternar tema"
         >

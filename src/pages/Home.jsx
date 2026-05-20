@@ -36,6 +36,7 @@ export default function Home() {
                     imagem={item.imagem}
                     categoria={item.categoria}
                     preco={item.preco}
+                    publisherId={item.publisherId}
                   />
                 ))
               )}

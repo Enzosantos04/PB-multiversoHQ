@@ -44,6 +44,7 @@ const CarouselRow = ({ section, items, loading }) => {
                   imagem={comic.imagem}
                   categoria={comic.categoria}
                   preco={undefined}
+                  publisherId={comic.publisherId}
                 />
               </div>
             ))}
