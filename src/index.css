@@ -26,7 +26,6 @@
   --accent: #dc2626;
   --accent-soft: rgba(239, 68, 68, 0.08);
   --shadow: rgba(0, 0, 0, 0.08);
-
   color: var(--text-color);
   background-color: var(--bg-color);
 }
