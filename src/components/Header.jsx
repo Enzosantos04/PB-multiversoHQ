@@ -29,10 +29,10 @@ function Header({ onChange = () => {}, value = "" }) {
       <nav aria-label="Principal">
         <Link to="/">Home</Link>
         <Link to="/catalogo">Catalogo</Link>
-        <Link to="#">Planos</Link>
+        <Link to="/planos">Planos</Link>
         <Link to="/contato">Contato</Link>
         <Link to="/login">Login</Link>
-          <Link to="#">Carrinho</Link>
+          <Link to="/carrinho">Carrinho</Link>
         <button 
           onClick={toggleTheme} 
           className={styles.themeToggle}
