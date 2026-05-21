@@ -29,18 +29,18 @@ function Footer() {
           <ul>
             <li><a href="#">Meus Pedidos</a></li>
             {/*<li><a href="#">Prazos de Entrega</a></li>*/}
-            <li><a href="#">Formas de Pagamento</a></li>
-            <li><a href="#">Trocas e Devoluções</a></li>
-            <li><a href="#">FAQ</a></li>
+            <li><Link to="/formas-pagamento">Formas de Pagamento</Link></li>
+            <li><Link to="/trocas-devolucoes">Trocas e Devoluções</Link></li>
+            <li><Link to="/faq">FAQ</Link></li>
           </ul>
         </div>
 
         <div className={styles.column}>
           <h4>Serviços</h4>
           <ul>
-            <li><a href="#">Termos de Uso</a></li>
-            <li><a href="#">Regulamentos</a></li>
-            <li><a href="#">Privacidade</a></li>
+            <li><Link to="/termos-de-uso">Termos de Uso</Link></li>
+            <li><Link to="/regulamentos">Regulamentos</Link></li>
+            <li><Link to="/privacidade">Privacidade</Link></li>
             {/*<li><a href="#">Gerenciar Cookies</a></li>*/}
           </ul>
         </div>
@@ -48,8 +48,8 @@ function Footer() {
         <div className={styles.column}>
           <h4>MultiversoHQ</h4>
           <ul>
-            <li><a href="#">Sobre o Grupo</a></li>
-            <li><a href="#">Trabalhe Conosco</a></li>
+            <li><Link to="/sobre">Sobre o Grupo</Link></li>
+            <li><Link to="/trabalhe-conosco">Trabalhe Conosco</Link></li>
             <li><Link to="/contato">Contato</Link></li>
             {/*<li><a href="#">Transparência</a></li>*/}
           </ul>
@@ -63,8 +63,7 @@ function Footer() {
         <div className={styles.column}>
           <h4>Assinaturas</h4>
           <ul>
-            <li><a href="#">Planos Mensais</a></li>
-            <li><a href="#">Clube de Vantagens</a></li>
+            <li><Link to="/planos">Planos Mensais</Link></li>
             {/*<li><a href="#">Assinaturas Marvel</a></li>*/}
             {/*<li><a href="#">Assinaturas DC</a></li>*/}
           </ul>
