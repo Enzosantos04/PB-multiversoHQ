@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./modules/SearchBar.module.css";
 
 const SearchBar = ({ value, onChange }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const searchRef = useRef(null);
 
@@ -86,10 +88,7 @@ const SearchBar = ({ value, onChange }) => {
 
   // Seleciona item
   const handleSelect = (comic) => {
-    onChange({
-      target: { value: comic.title },
-    });
-
+    navigate(`/quadrinho/${comic.id}`);
     setOpen(false);
   };
 
