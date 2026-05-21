@@ -15,6 +15,7 @@ import TrabalheConoscoPage from "./pages/TrabalheConoscoPage";
 import FormasPagamentoPage from "./pages/FormasPagamentoPage";
 import TrocasDevolucoesPage from "./pages/TrocasDevolucoesPage";
 import FAQPage from "./pages/FAQPage";
+import ComicDetailPage from "./pages/ComicDetailPage";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/formas-pagamento" element={<FormasPagamentoPage />} />
           <Route path="/trocas-devolucoes" element={<TrocasDevolucoesPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/quadrinho/:id" element={<ComicDetailPage />} />
         </Routes>
       </BrowserRouter>
     </ComicsProvider>
