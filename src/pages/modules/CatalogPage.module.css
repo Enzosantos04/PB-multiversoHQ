@@ -156,7 +156,8 @@
   display: flex;
   gap: 16px;
   overflow-x: auto;
-  padding: 8px 24px 20px;
+  padding: 20px 24px 30px; /* Increased top/bottom padding for shadows */
+  margin-top: -12px; /* Offset the padding to keep spacing tight */
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   /* Firefox */
@@ -169,7 +170,7 @@
 
 @media (max-width: 640px) {
   .rowWrapper {
-    padding: 8px 16px 16px;
+    padding: 16px 16px 24px;
     gap: 12px;
   }
 }
@@ -179,11 +180,9 @@
   flex-shrink: 0;
   scroll-snap-align: start;
   width: 180px;
-  border-radius: 12px;
-  border: 1.5px solid color-mix(in srgb, var(--accent) 40%, transparent);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  overflow: hidden;
   cursor: pointer;
+  /* removed overflow: hidden to allow shadows */
 }
 
 @media (max-width: 640px) {
