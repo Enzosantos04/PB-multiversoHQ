@@ -1,8 +1,10 @@
 .bannerContainer {
   width: 100%;
-  margin: 0 0 3rem 0;
+  max-width: 100%;
+  margin: 110px 0 3rem 0;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .slideWrapper {
@@ -12,10 +14,33 @@
 .slide {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 520px;
   overflow: hidden;
-  border-radius: 1rem;
   transition: transform 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .bannerContainer {
+    margin-top: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bannerContainer {
+    margin-top: 150px;
+  }
+  .slide {
+    height: 320px;
+    border-radius: 1rem;
+    margin: 0 1rem;
+    width: calc(100% - 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .bannerContainer {
+    margin-top: 180px;
+  }
 }
 
 .slide:hover {
@@ -44,8 +69,8 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(255, 255, 255, 0.8) 35%,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(145, 144, 144, 0.8) 35%,
     rgba(0, 0, 0, 0.12) 55%,
     rgba(220, 38, 38, 0.25) 100%
   );
@@ -98,28 +123,29 @@
 }
 
 .title {
-  font-size: 3rem;
+  font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: 900;
   color: #dc2626;
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 1.25rem;
-  color: #111111;
-  margin: 0 0 2rem 0;
-  line-height: 1.6;
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+  color: #ffffff;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.4;
+  opacity: 0.9;
 }
 
 .ctaButton {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
   background: transparent;
   color: #dc2626;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 700;
   border: 2px solid #dc2626;
   border-radius: 0.5rem;
@@ -207,9 +233,7 @@
 
 .bannerContainer :global(.slick-prev:before),
 .bannerContainer :global(.slick-next:before) {
-  font-size: 30px;
-  opacity: 1;
-  color: white;
+  content: none;
 }
 
 /* RESPONSIVO */

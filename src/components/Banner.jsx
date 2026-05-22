@@ -2,6 +2,7 @@ import React from "react";
 import * as ReactSlick from "react-slick";
 import styles from "./modules/Banner.module.css";
 import { useNavigate } from "react-router-dom";
+import { CustomNextArrow, CustomPrevArrow } from "./Arrows";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,7 +25,7 @@ const Banner = () => {
     {
       id: 2,
       image:
-        "https://imgs.search.brave.com/TH1L0JAni2SPmXjq0NQi2IuIiDgRvMJjUwoGco11lhY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/aW5qdXN0aWNlLWdp/ZnRlZC1vci1jdXJz/ZWQtdXMtd2l0aC10/aGlzLWltYWdlLXYw/LW5ma2lkbDhuNG41/ZzEucG5nP3dpZHRo/PTY0MCZjcm9wPXNt/YXJ0JmF1dG89d2Vi/cCZzPWViZGFkMGY4/MTA5YmE4NzRlNzgy/ZWUwYjQxZjkxZWYz/MzFjM2Y2OTA",
+        "https://indutalks.com.br/wp-content/uploads/2024/09/Liga-da-Justica-Todos-os-Titulos.jpg",
       title: "Universo DC em Expansão",
       subtitle: "Explore as histórias épicas da Liga da Justiça",
       link: "#dc",
@@ -33,7 +34,7 @@ const Banner = () => {
     {
       id: 3,
       image:
-        "https://imgs.search.brave.com/He_5ICfMJSevaNTWI4SmcOoB3cmnDNCyk-yfGaT1XkI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9vYnNl/cnZhdG9yaW9kb2Np/bmVtYS5jb20uYnIv/d3AtY29udGVudC91/cGxvYWRzLzIwMTkv/MTAvYmF0bWFuLXZz/LWlyb24tbWFuLTVr/LTVsLTEwNjh4NTgw/LmpwZw",
+        "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1200&h=400&fit=crop",
       title: "Edições Especiais",
       subtitle: "Coleções raras e limitadas disponíveis agora",
       link: "#especiais",
@@ -42,7 +43,7 @@ const Banner = () => {
     {
       id: 4,
       image:
-        "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1200&h=400&fit=crop",
+        "https://i0.wp.com/www.comicbookwire.com/wp-content/uploads/2018/02/jla-avengers.jpg?ssl=1",
       title: "Crossovers Épicos",
       subtitle: "Marvel vs DC - As maiores batalhas já contadas",
       link: "#crossover",
@@ -62,6 +63,8 @@ const Banner = () => {
     fade: true,
     cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const handleSlideClick = (link) => {

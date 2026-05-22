@@ -20,20 +20,11 @@ function Header({ onChange = () => {}, value = "" }) {
 
   return (
     <header className={styles.header}>
-      <Link to="/">
-        <img src={logo} alt="Logo" />
+      <Link to="/" className={styles.logoLink}>
+        <img src={logo} alt="Logo" className={styles.logo} />
       </Link>
 
-      <section className={styles.search}>
-        <SearchBar value={value} onChange={onChange} />
-      </section>
-
-      <nav aria-label="Principal">
-        <Link to="/">Home</Link>
-        <Link to="/catalogo">Catalogo</Link>
-        <Link to="/planos">Planos</Link>
-        <Link to="/contato">Contato</Link>
-        <Link to="/login">Login</Link>
+      <div className={styles.headerActions}>
         <Link to="/carrinho" className={styles.cartLink}>
           🛒
           {totalItens > 0 && (
@@ -47,6 +38,18 @@ function Header({ onChange = () => {}, value = "" }) {
         >
           {theme === "light" ? "🌙" : "☀️"}
         </button>
+      </div>
+
+      <section className={styles.search}>
+        <SearchBar value={value} onChange={onChange} />
+      </section>
+
+      <nav className={styles.nav} aria-label="Principal">
+        <Link to="/">Home</Link>
+        <Link to="/catalogo">Catalogo</Link>
+        <Link to="/planos">Planos</Link>
+        <Link to="/contato">Contato</Link>
+        <Link to="/login" className={styles.loginBtn}>Login</Link>
       </nav>
     </header>
   );
