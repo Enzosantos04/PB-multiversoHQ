@@ -45,6 +45,9 @@ function LoginForm() {
         <button type="submit" className={styles.submitButton}>
           Entrar
         </button>
+        <a href="#" className={styles.forgotPassword}>
+          Não tem uma conta? Cadastre-se
+        </a>
       </form>
     </section>
   );
