@@ -6,7 +6,7 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--card-bg);
   border: 1px solid rgba(239, 68, 68, 0.15);
-  box-shadow: 0 4px 6px var(--shadow, rgba(0,0,0,0.1));
+  box-shadow: 0 4px 6px var(--shadow, rgba(0, 0, 0, 0.1));
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -14,15 +14,17 @@
 
 .cardQuadrinho:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 32px var(--shadow, rgba(0,0,0,0.15)),
-              0 0 24px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 16px 32px var(--shadow, rgba(0, 0, 0, 0.15)),
+    0 0 24px rgba(239, 68, 68, 0.25);
   border-color: rgba(239, 68, 68, 0.35);
 }
 
 .cardQuadrinho::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 2px;
   background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
   opacity: 0;
@@ -30,7 +32,9 @@
   z-index: 1;
 }
 
-.cardQuadrinho:hover::before { opacity: 1; }
+.cardQuadrinho:hover::before {
+  opacity: 1;
+}
 
 .cardImagem {
   width: 100%;
@@ -41,7 +45,10 @@
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cardQuadrinho:hover .cardImagem { transform: scale(1.04); }
+/*
+.cardQuadrinho:hover .cardImagem {
+  transform: scale(1.04);
+}*/
 
 .cardInfo {
   padding: 0.75rem 0.875rem 0.5rem;
