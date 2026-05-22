@@ -4,6 +4,9 @@ import styles from "./modules/Header.module.css";
 import logo from "../images/logo.png";
 import SearchBar from "./SearchBar";
 import { useComics } from "../context/ComicsContext";
+import { IoCartOutline } from "react-icons/io5";
+import { GoSun } from "react-icons/go";
+import { GoMoon } from "react-icons/go";
 
 function Header({ onChange = () => {}, value = "" }) {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -26,7 +29,7 @@ function Header({ onChange = () => {}, value = "" }) {
 
       <div className={styles.headerActions}>
         <Link to="/carrinho" className={styles.cartLink}>
-          🛒
+          <IoCartOutline size={24} color="red" />
           {totalItens > 0 && (
             <span className={styles.cartBadge}>{totalItens}</span>
           )}
@@ -36,7 +39,7 @@ function Header({ onChange = () => {}, value = "" }) {
           className={styles.themeToggle}
           aria-label="Alternar tema"
         >
-          {theme === "light" ? "🌙" : "☀️"}
+          {theme === "light" ? <GoSun color="red" /> : <GoMoon color="red" />}
         </button>
       </div>
 
@@ -49,7 +52,9 @@ function Header({ onChange = () => {}, value = "" }) {
         <Link to="/catalogo">Catalogo</Link>
         <Link to="/planos">Planos</Link>
         <Link to="/contato">Contato</Link>
-        <Link to="/login" className={styles.loginBtn}>Login</Link>
+        <Link to="/login" className={styles.loginBtn}>
+          Login
+        </Link>
       </nav>
     </header>
   );
