@@ -1,7 +1,7 @@
 .bannerContainer {
   width: 100%;
   max-width: 100%;
-  margin: 110px 0 3rem 0;
+  margin: 80px 0 3rem 0;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
@@ -29,6 +29,7 @@
   .bannerContainer {
     margin-top: 150px;
   }
+
   .slide {
     height: 320px;
     border-radius: 1rem;
@@ -67,13 +68,11 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(145, 144, 144, 0.8) 35%,
-    rgba(0, 0, 0, 0.12) 55%,
-    rgba(220, 38, 38, 0.25) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(145, 144, 144, 0.8) 35%,
+      rgba(0, 0, 0, 0.12) 55%,
+      rgba(220, 38, 38, 0.25) 100%);
   z-index: 1;
 }
 
@@ -188,14 +187,12 @@
   transition: all 0.3s ease;
 }
 
-.bannerContainer
-  :global(.slick-dots li.slick-active button:before) {
+.bannerContainer :global(.slick-dots li.slick-active button:before) {
   opacity: 1;
   color: #dc2626;
 }
 
-.bannerContainer
-  :global(.slick-dots li:hover button:before) {
+.bannerContainer :global(.slick-dots li:hover button:before) {
   opacity: 0.8;
 }
 
