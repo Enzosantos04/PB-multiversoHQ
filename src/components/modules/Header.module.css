@@ -79,7 +79,7 @@
   white-space: nowrap;
 }
 
-.nav a:hover {
+.nav a:nth-child(-n+4):hover {
   color: #dc2626;
   background: rgba(239, 68, 68, 0.08);
 }
@@ -90,6 +90,10 @@
   padding: 0.4rem 0.8rem !important;
   border-radius: 0.5rem !important;
   font-weight: 700 !important;
+}
+
+.loginBtn:hover {
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
 .cartLink {
@@ -136,7 +140,8 @@
     flex-wrap: nowrap;
     padding: 0.5rem 2rem;
     gap: 1.5rem;
-    height: 100px; /* Aumentado para caber a logo maior */
+    height: 100px;
+    /* Aumentado para caber a logo maior */
   }
 
   .logoLink {
@@ -146,7 +151,8 @@
   }
 
   .logo {
-    height: 100px; /* LOGO GRANDE PARA WEB */
+    height: 100px;
+    /* LOGO GRANDE PARA WEB */
     min-height: 80px;
   }
 
@@ -181,7 +187,7 @@
   .logo {
     height: 80px;
   }
-  
+
   .nav a {
     font-size: 0.8rem;
     padding: 0.35rem 0.5rem;
