@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./modules/Footer.module.css";
 import logo from "../images/logo.png";
-import facebookIcon from "../images/Facebook_icon.png";
-import instagramIcon from "../images/Instagram_icon.png";
-import linkedinIcon from "../images/linkedin_icon.png";
+import { FaInstagram } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+
 
 function Footer() {
   return (
@@ -54,9 +55,9 @@ function Footer() {
             {/*<li><a href="#">Transparência</a></li>*/}
           </ul>
           <div className={styles.socialIcons}>
-            <a href="#" aria-label="Instagram"><img src={instagramIcon} alt="Instagram" /></a>
-            <a href="#" aria-label="Facebook"><img src={facebookIcon} alt="Facebook" /></a>
-            <a href="#" aria-label="Linkedin"><img src={linkedinIcon} alt="Linkedin" /></a>
+            <a href="#" aria-label="Instagram"><FaInstagram /></a>
+            <a href="#" aria-label="Facebook"><FaFacebook /></a>
+            <a href="#" aria-label="Linkedin"><FaLinkedin /></a>
           </div>
         </div>
 
