@@ -65,8 +65,6 @@ function Footer() {
           <h4>Assinaturas</h4>
           <ul>
             <li><Link to="/planos">Planos Mensais</Link></li>
-            {/*<li><a href="#">Assinaturas Marvel</a></li>*/}
-            {/*<li><a href="#">Assinaturas DC</a></li>*/}
           </ul>
         </div>
       </div>
