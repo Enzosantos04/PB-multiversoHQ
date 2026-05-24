@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useComics } from "../context/ComicsContext";
 import styles from "./modules/Carrinho.module.css";
+import { IoCartOutline } from "react-icons/io5";
 
 // Label legível do plano
 const PLANO_LABEL = {
@@ -88,7 +89,7 @@ export default function CarrinhoPage() {
       <Header onChange={handleChange} value={searchTerm} />
 
       <main className={styles.main}>
-        <h1 className={styles.pageTitle}>🛒 Carrinho</h1>
+        <h1 className={styles.pageTitle}> <IoCartOutline color="red"/> Carrinho</h1>
 
         {/* Mock user switcher — para testar os 4 cenários */}
         <div className={styles.userSwitcher}>
