@@ -1,0 +1,133 @@
+.wrapper {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 5vw, 2.5rem);
+  background: var(--card-bg);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 1rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 2rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.header h1 {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 800;
+  color: var(--text-color);
+  margin: 0 0 0.75rem 0;
+}
+
+.subtitle {
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.field span {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.field input::placeholder {
+  color: #6b7280;
+}
+
+.field input:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.08);
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.formOptions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.5rem;
+}
+
+.forgotPassword {
+  color: var(--text-color);
+  opacity: 0.6;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.forgotPassword:hover {
+  color: #dc2626;
+  opacity: 1;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 0 30px rgba(239, 68, 68, 0.5),
+    0 0 30px rgba(220, 38, 38, 0.4);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
