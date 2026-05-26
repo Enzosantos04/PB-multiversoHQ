@@ -3,6 +3,11 @@ import { ComicsProvider } from "./context/ComicsContext";
 import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
+<<<<<<< HEAD
+=======
+import RegisterPage from "./pages/RegisterPage";
+import MinhaContaPage from "./pages/MinhaContaPage";
+>>>>>>> master
 import CatalogPage from "./pages/CatalogPage";
 import ContactPage from "./pages/ContactPage";
 import PlanosPage from "./pages/PlanosPage";
@@ -26,6 +31,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<CatalogPage />} />
           <Route path="/login" element={<LoginPage />} />
+<<<<<<< HEAD
+=======
+          <Route path="/cadastro" element={<RegisterPage />} />
+          <Route path="/minha-conta" element={<MinhaContaPage />} />
+>>>>>>> master
           <Route path="/contato" element={<ContactPage />} />
           <Route path="/planos" element={<PlanosPage />} />
           <Route path="/carrinho" element={<CarrinhoPage />} />

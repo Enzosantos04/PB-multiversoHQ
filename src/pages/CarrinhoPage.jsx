@@ -91,6 +91,7 @@ export default function CarrinhoPage() {
       <main className={styles.main}>
         <h1 className={styles.pageTitle}> <IoCartOutline color="red"/> Carrinho</h1>
 
+<<<<<<< HEAD
         {/* Mock user switcher — para testar os 4 cenários */}
         <div className={styles.userSwitcher}>
           <span className={styles.userSwitcherLabel}>Simular usuário:</span>
@@ -110,6 +111,8 @@ export default function CarrinhoPage() {
           </div>
         </div>
 
+=======
+>>>>>>> master
         {/* Usuário ativo */}
         <div className={styles.usuarioAtivo}>
           <div className={styles.usuarioInfo}>

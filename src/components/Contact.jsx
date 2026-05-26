@@ -56,7 +56,11 @@ function Contact() {
     <div className={styles.app}>
       <header className={styles.hero}>
         <div className={styles.heroContent}>
+<<<<<<< HEAD
           <span className={styles.heroCategory}>Atendimento</span>
+=======
+          
+>>>>>>> master
           <h1>Entre em Contato</h1>
           <p className={styles.description}>
             Dúvidas, sugestões ou apenas quer bater um papo sobre quadrinhos? 

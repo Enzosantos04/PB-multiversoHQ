@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { createContext, useContext, useEffect, useState } from "react";
+=======
+import React, { createContext, useContext, useEffect, useState } from "react";
+>>>>>>> master
 
 // ============================================================
 // MOCK USERS — 4 situações cadastrais diferentes
@@ -8,6 +12,10 @@ export const MOCK_USERS = [
     id: 1,
     nome: "Visitante",
     email: null,
+<<<<<<< HEAD
+=======
+    password: null,
+>>>>>>> master
     logado: false,
     plano: null, // sem login
   },
@@ -15,6 +23,10 @@ export const MOCK_USERS = [
     id: 2,
     nome: "Carlos Silva",
     email: "carlos@email.com",
+<<<<<<< HEAD
+=======
+    password: "123",
+>>>>>>> master
     logado: true,
     plano: null, // logado sem plano → 15% desconto no aluguel, paga frete
   },
@@ -22,6 +34,10 @@ export const MOCK_USERS = [
     id: 3,
     nome: "Ana Marvel",
     email: "ana@email.com",
+<<<<<<< HEAD
+=======
+    password: "123",
+>>>>>>> master
     logado: true,
     plano: "marvel", // aluguel Marvel grátis, DC preço cheio
   },
@@ -29,6 +45,10 @@ export const MOCK_USERS = [
     id: 4,
     nome: "Bruno DC",
     email: "bruno@email.com",
+<<<<<<< HEAD
+=======
+    password: "123",
+>>>>>>> master
     logado: true,
     plano: "dc", // aluguel DC grátis, Marvel preço cheio
   },
@@ -36,6 +56,10 @@ export const MOCK_USERS = [
     id: 5,
     nome: "Julia Super",
     email: "julia@email.com",
+<<<<<<< HEAD
+=======
+    password: "123",
+>>>>>>> master
     logado: true,
     plano: "superhero", // aluguel Marvel E DC grátis
   },
@@ -86,6 +110,11 @@ const mykey = import.meta.env.VITE_COMIC_VINE_API_KEY;
 
 async function fetchVolumes(extraParams = "") {
   const apiUrl = `https://comicvine.gamespot.com/api/volumes/?api_key=${mykey}&format=json&field_list=id,name,image,publisher,description${extraParams}`;
+<<<<<<< HEAD
+=======
+    console.log(apiUrl);
+
+>>>>>>> master
   const response = await fetch(`https://corsproxy.io/?${encodeURIComponent(apiUrl)}`);
   if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
   const data = await response.json();
@@ -119,6 +148,10 @@ export function ComicsProvider({ children }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   // --- Auth state (mock) ---
+<<<<<<< HEAD
+=======
+  const [users, setUsers] = useState(MOCK_USERS);
+>>>>>>> master
   // Começa como visitante (MOCK_USERS[0])
   const [usuarioAtual, setUsuarioAtual] = useState(MOCK_USERS[0]);
 
@@ -215,6 +248,46 @@ export function ComicsProvider({ children }) {
 
   const totalItens = carrinho.reduce((acc, i) => acc + i.quantidade, 0);
 
+<<<<<<< HEAD
+=======
+  // --- Auth actions ---
+  function login(email, password) {
+    // Busca usuário pelo email (mock simples)
+    const user = users.find((u) => u.email === email);
+    
+    if (user && user.password === password) {
+      setUsuarioAtual(user);
+      return { success: true };
+    }
+    
+    return { success: false, message: "E-mail ou senha incorretos." };
+  }
+
+  function register(name, email, password) {
+    // Verifica se usuário já existe
+    if (users.find((u) => u.email === email)) {
+      return { success: false, message: "Este e-mail já está cadastrado." };
+    }
+
+    const newUser = {
+      id: users.length + 1,
+      nome: name,
+      email: email,
+      password: password,
+      logado: true,
+      plano: null,
+    };
+
+    setUsers((prev) => [...prev, newUser]);
+    setUsuarioAtual(newUser);
+    return { success: true };
+  }
+
+  function logout() {
+    setUsuarioAtual(MOCK_USERS[0]);
+  }
+
+>>>>>>> master
   return (
     <ComicsContext.Provider
       value={{
@@ -222,7 +295,11 @@ export function ComicsProvider({ children }) {
         marvel, dc, recent, iconic, loading,
         searchResults, searchTerm, setSearchTerm,
         // Auth
+<<<<<<< HEAD
         usuarioAtual, setUsuarioAtual, MOCK_USERS,
+=======
+        usuarioAtual, setUsuarioAtual, MOCK_USERS, login, logout, register,
+>>>>>>> master
         // Cart
         carrinho, addToCart, removeFromCart, updateQuantidade, limparCarrinho, totalItens,
         // Pricing helpers
