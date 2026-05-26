@@ -3,11 +3,6 @@ import { ComicsProvider } from "./context/ComicsContext";
 import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
-<<<<<<< HEAD
-=======
-import RegisterPage from "./pages/RegisterPage";
-import MinhaContaPage from "./pages/MinhaContaPage";
->>>>>>> master
 import CatalogPage from "./pages/CatalogPage";
 import ContactPage from "./pages/ContactPage";
 import PlanosPage from "./pages/PlanosPage";
