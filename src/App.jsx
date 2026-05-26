@@ -31,11 +31,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<CatalogPage />} />
           <Route path="/login" element={<LoginPage />} />
-<<<<<<< HEAD
-=======
-          <Route path="/cadastro" element={<RegisterPage />} />
-          <Route path="/minha-conta" element={<MinhaContaPage />} />
->>>>>>> master
           <Route path="/contato" element={<ContactPage />} />
           <Route path="/planos" element={<PlanosPage />} />
           <Route path="/carrinho" element={<CarrinhoPage />} />
