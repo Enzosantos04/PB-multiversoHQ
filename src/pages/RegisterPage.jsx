@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
-import LoginForm from "../components/LoginForm.jsx";
+import RegisterForm from "../components/RegisterForm.jsx";
 import Footer from "../components/Footer.jsx";
 import styles from "../components/modules/LoginPage.module.css";
 import { useComics } from "../context/ComicsContext";
 
-function LoginPage() {
+function RegisterPage() {
   const {
     searchTerm,
     setSearchTerm,
@@ -34,22 +34,21 @@ function LoginPage() {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <p className={styles.heroCategory}>
-            Aluguel e venda de quadrinhos
+            Venha para a MultiversoHQ
           </p>
 
           <h1>
-            Entre para o clube de leitores da MultiversoHQ
+            Crie sua conta e comece sua jornada
           </h1>
 
           <p className={styles.description}>
-            Descubra historias novas toda semana, com entrega rapida e acervo
-            de colecionador.
+            Acesso exclusivo a lançamentos, promoções e um acervo completo de heróis.
           </p>
         </div>
       </section>
 
       <main className={styles.loginSection}>
-        <LoginForm />
+        <RegisterForm />
       </main>
 
       <Footer />
@@ -57,4 +56,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

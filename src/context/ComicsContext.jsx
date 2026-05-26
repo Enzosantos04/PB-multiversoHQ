@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 // ============================================================
 // MOCK USERS — 4 situações cadastrais diferentes
@@ -8,6 +8,7 @@ export const MOCK_USERS = [
     id: 1,
     nome: "Visitante",
     email: null,
+    password: null,
     logado: false,
     plano: null, // sem login
   },
@@ -15,6 +16,7 @@ export const MOCK_USERS = [
     id: 2,
     nome: "Carlos Silva",
     email: "carlos@email.com",
+    password: "123",
     logado: true,
     plano: null, // logado sem plano → 15% desconto no aluguel, paga frete
   },
@@ -22,6 +24,7 @@ export const MOCK_USERS = [
     id: 3,
     nome: "Ana Marvel",
     email: "ana@email.com",
+    password: "123",
     logado: true,
     plano: "marvel", // aluguel Marvel grátis, DC preço cheio
   },
@@ -29,6 +32,7 @@ export const MOCK_USERS = [
     id: 4,
     nome: "Bruno DC",
     email: "bruno@email.com",
+    password: "123",
     logado: true,
     plano: "dc", // aluguel DC grátis, Marvel preço cheio
   },
@@ -36,6 +40,7 @@ export const MOCK_USERS = [
     id: 5,
     nome: "Julia Super",
     email: "julia@email.com",
+    password: "123",
     logado: true,
     plano: "superhero", // aluguel Marvel E DC grátis
   },
@@ -121,6 +126,7 @@ export function ComicsProvider({ children }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   // --- Auth state (mock) ---
+  const [users, setUsers] = useState(MOCK_USERS);
   // Começa como visitante (MOCK_USERS[0])
   const [usuarioAtual, setUsuarioAtual] = useState(MOCK_USERS[0]);
 
@@ -217,6 +223,43 @@ export function ComicsProvider({ children }) {
 
   const totalItens = carrinho.reduce((acc, i) => acc + i.quantidade, 0);
 
+  // --- Auth actions ---
+  function login(email, password) {
+    // Busca usuário pelo email (mock simples)
+    const user = users.find((u) => u.email === email);
+    
+    if (user && user.password === password) {
+      setUsuarioAtual(user);
+      return { success: true };
+    }
+    
+    return { success: false, message: "E-mail ou senha incorretos." };
+  }
+
+  function register(name, email, password) {
+    // Verifica se usuário já existe
+    if (users.find((u) => u.email === email)) {
+      return { success: false, message: "Este e-mail já está cadastrado." };
+    }
+
+    const newUser = {
+      id: users.length + 1,
+      nome: name,
+      email: email,
+      password: password,
+      logado: true,
+      plano: null,
+    };
+
+    setUsers((prev) => [...prev, newUser]);
+    setUsuarioAtual(newUser);
+    return { success: true };
+  }
+
+  function logout() {
+    setUsuarioAtual(MOCK_USERS[0]);
+  }
+
   return (
     <ComicsContext.Provider
       value={{
@@ -224,7 +267,7 @@ export function ComicsProvider({ children }) {
         marvel, dc, recent, iconic, loading,
         searchResults, searchTerm, setSearchTerm,
         // Auth
-        usuarioAtual, setUsuarioAtual, MOCK_USERS,
+        usuarioAtual, setUsuarioAtual, MOCK_USERS, login, logout, register,
         // Cart
         carrinho, addToCart, removeFromCart, updateQuantidade, limparCarrinho, totalItens,
         // Pricing helpers

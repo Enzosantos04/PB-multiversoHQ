@@ -87,6 +87,16 @@
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
+.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
 .formOptions {
   display: flex;
   justify-content: flex-end;
