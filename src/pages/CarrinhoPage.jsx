@@ -43,7 +43,7 @@ export default function CarrinhoPage() {
   // Subtotal dos itens
   const subtotal = carrinho.reduce(
     (acc, item) => acc + precoItem(item) * item.quantidade,
-    0
+    0,
   );
 
   const frete = calcularFrete(usuarioAtual);
@@ -74,9 +74,17 @@ export default function CarrinhoPage() {
           <div className={styles.successBox}>
             <span className={styles.successIcon}>🎉</span>
             <h2>Pedido Confirmado!</h2>
-            <p>Obrigado, <strong>{usuarioAtual.nome}</strong>! Seu pedido foi realizado com sucesso.</p>
-            <p className={styles.totalConfirmado}>Total pago: <strong>R$ {total.toFixed(2).replace(".", ",")}</strong></p>
-            <Link to="/" className={styles.btnVoltar}>Voltar para a Home</Link>
+            <p>
+              Obrigado, <strong>{usuarioAtual.nome}</strong>! Seu pedido foi
+              realizado com sucesso.
+            </p>
+            <p className={styles.totalConfirmado}>
+              Total pago:{" "}
+              <strong>R$ {total.toFixed(2).replace(".", ",")}</strong>
+            </p>
+            <Link to="/" className={styles.btnVoltar}>
+              Voltar para a Home
+            </Link>
           </div>
         </main>
         <Footer />
@@ -89,7 +97,10 @@ export default function CarrinhoPage() {
       <Header onChange={handleChange} value={searchTerm} />
 
       <main className={styles.main}>
-        <h1 className={styles.pageTitle}> <IoCartOutline color="red"/> Carrinho</h1>
+        <h1 className={styles.pageTitle}>
+          {" "}
+          <IoCartOutline color="red" /> Carrinho
+        </h1>
 
         {/* Usuário ativo */}
         <div className={styles.usuarioAtivo}>
@@ -109,9 +120,13 @@ export default function CarrinhoPage() {
             </div>
           </div>
           <div className={styles.freteInfo}>
-            {frete === 0
-              ? <span className={styles.freteGratis}>🚚 Frete grátis!</span>
-              : <span className={styles.fretePago}>🚚 Frete: R$ {frete.toFixed(2).replace(".", ",")}</span>}
+            {frete === 0 ? (
+              <span className={styles.freteGratis}>🚚 Frete grátis!</span>
+            ) : (
+              <span className={styles.fretePago}>
+                🚚 Frete: R$ {frete.toFixed(2).replace(".", ",")}
+              </span>
+            )}
           </div>
         </div>
 
@@ -119,7 +134,9 @@ export default function CarrinhoPage() {
           <div className={styles.emptyCart}>
             <span className={styles.emptyIcon}>📭</span>
             <p>Seu carrinho está vazio.</p>
-            <Link to="/catalogo" className={styles.btnVoltar}>Ver Catálogo</Link>
+            <Link to="/catalogo" className={styles.btnVoltar}>
+              Ver Catálogo
+            </Link>
           </div>
         ) : (
           <div className={styles.layout}>
@@ -137,28 +154,42 @@ export default function CarrinhoPage() {
                     />
                     <div className={styles.itemInfo}>
                       <h3 className={styles.itemTitulo}>{item.titulo}</h3>
-                      <span className={`${styles.itemAcao} ${item.acao === "rent" ? styles.acaoAluguel : styles.acaoCompra}`}>
+                      <span
+                        className={`${styles.itemAcao} ${item.acao === "rent" ? styles.acaoAluguel : styles.acaoCompra}`}
+                      >
                         {item.acao === "rent" ? "Aluguel" : "Compra"}
                       </span>
                       {desconto && (
                         <span className={styles.descontoTag}>{desconto}</span>
                       )}
                       <p className={styles.itemPrecoUnit}>
-                        {preco === 0
-                          ? <span className={styles.gratis}>Grátis</span>
-                          : `R$ ${preco.toFixed(2).replace(".", ",")} /un`}
+                        {preco === 0 ? (
+                          <span className={styles.gratis}>Grátis</span>
+                        ) : (
+                          `R$ ${preco.toFixed(2).replace(".", ",")} /un`
+                        )}
                       </p>
                     </div>
                     <div className={styles.itemControls}>
                       <div className={styles.qtdControls}>
-                        <button onClick={() => updateQuantidade(item.cartKey, -1)}>−</button>
+                        <button
+                          onClick={() => updateQuantidade(item.cartKey, -1)}
+                        >
+                          −
+                        </button>
                         <span>{item.quantidade}</span>
-                        <button onClick={() => updateQuantidade(item.cartKey, 1)}>+</button>
+                        <button
+                          onClick={() => updateQuantidade(item.cartKey, 1)}
+                        >
+                          +
+                        </button>
                       </div>
                       <p className={styles.itemTotal}>
-                        {preco === 0
-                          ? <span className={styles.gratis}>Grátis</span>
-                          : `R$ ${(preco * item.quantidade).toFixed(2).replace(".", ",")}`}
+                        {preco === 0 ? (
+                          <span className={styles.gratis}>Grátis</span>
+                        ) : (
+                          `R$ ${(preco * item.quantidade).toFixed(2).replace(".", ",")}`
+                        )}
                       </p>
                       <button
                         className={styles.btnRemover}
@@ -188,7 +219,9 @@ export default function CarrinhoPage() {
               <div className={styles.resumoLinha}>
                 <span>Frete</span>
                 <span className={frete === 0 ? styles.gratis : ""}>
-                  {frete === 0 ? "Grátis" : `R$ ${frete.toFixed(2).replace(".", ",")}`}
+                  {frete === 0
+                    ? "Grátis"
+                    : `R$ ${frete.toFixed(2).replace(".", ",")}`}
                 </span>
               </div>
 
@@ -200,13 +233,17 @@ export default function CarrinhoPage() {
 
               {usuarioAtual.plano && (
                 <div className={styles.resumoDesconto}>
-                  <span>✓ {PLANO_LABEL[usuarioAtual.plano]}: aluguéis cobertos grátis</span>
+                  <span>
+                    ✓ {PLANO_LABEL[usuarioAtual.plano]}: aluguéis cobertos
+                    grátis
+                  </span>
                 </div>
               )}
 
               {!usuarioAtual.logado && (
                 <div className={styles.resumoLogin}>
-                  <Link to="/login">Faça login</Link> para ganhar 15% de desconto nos aluguéis e frete grátis com um plano.
+                  <Link to="/login">Faça login</Link> para ganhar 15% de
+                  desconto nos aluguéis e frete grátis com um plano.
                 </div>
               )}
 

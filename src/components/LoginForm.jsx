@@ -1,28 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useComics } from "../context/ComicsContext";
 import styles from "./modules/login.module.css";
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { login } = useComics();
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError("");
-
-    const result = login(email, password);
-
-    if (result.success) {
-      navigate("/");
-    } else {
-      setError(result.message);
-    }
-  };
-
   return (
     <section className={styles.wrapper}>
       <header className={styles.header}>
@@ -33,8 +11,7 @@ function LoginForm() {
         </p>
       </header>
 
-      <form className={styles.form} onSubmit={handleSubmit}>
-        {error && <p className={styles.error}>{error}</p>}
+      <form className={styles.form}>
         <label className={styles.field} htmlFor="email">
           <span>Email</span>
           <input
@@ -43,8 +20,6 @@ function LoginForm() {
             type="email"
             placeholder="voce@exemplo.com"
             autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
@@ -57,8 +32,6 @@ function LoginForm() {
             type="password"
             placeholder="Digite sua senha"
             autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
@@ -72,9 +45,9 @@ function LoginForm() {
         <button type="submit" className={styles.submitButton}>
           Entrar
         </button>
-        <Link to="/cadastro" className={styles.forgotPassword}>
+        <a href="#" className={styles.forgotPassword}>
           Não tem uma conta? Cadastre-se
-        </Link>
+        </a>
       </form>
     </section>
   );

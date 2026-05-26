@@ -10,7 +10,7 @@ import { GoMoon } from "react-icons/go";
 
 function Header({ onChange = () => {}, value = "" }) {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const { totalItens, usuarioAtual, logout } = useComics();
+  const { totalItens } = useComics();
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -52,21 +52,9 @@ function Header({ onChange = () => {}, value = "" }) {
         <Link to="/catalogo">Catalogo</Link>
         <Link to="/planos">Planos</Link>
         <Link to="/contato">Contato</Link>
-        {usuarioAtual.logado && <Link to="/minha-conta">Minha Conta</Link>}
-        {usuarioAtual.logado ? (
-          <div className={styles.userContainer}>
-            <Link to="/minha-conta" className={styles.userName}>
-              Olá, {usuarioAtual.nome.split(" ")[0]}
-            </Link>
-            <button onClick={logout} className={styles.logoutBtn}>
-              Sair
-            </button>
-          </div>
-        ) : (
-          <Link to="/login" className={styles.loginBtn}>
-            Login
-          </Link>
-        )}
+        <Link to="/login" className={styles.loginBtn}>
+          Login
+        </Link>
       </nav>
     </header>
   );

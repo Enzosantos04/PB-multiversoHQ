@@ -96,47 +96,6 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
-.userContainer {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.userName {
-  color: var(--text-color);
-  font-size: 0.85rem;
-  font-weight: 600;
-  display: none;
-  text-decoration: none;
-}
-
-.userName:hover {
-  color: #dc2626;
-}
-
-@media (min-width: 768px) {
-  .userName {
-    display: block;
-  }
-}
-
-.logoutBtn {
-  background: transparent;
-  border: 1px solid #dc2626;
-  color: #dc2626;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.logoutBtn:hover {
-  background: #dc2626;
-  color: white;
-}
-
 .cartLink {
   position: relative;
   font-size: 1.3rem;
