@@ -1,34 +1,6 @@
-<<<<<<< HEAD
 import styles from "./modules/login.module.css";
 
 function LoginForm() {
-=======
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useComics } from "../context/ComicsContext";
-import styles from "./modules/login.module.css";
-
-function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { login } = useComics();
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError("");
-
-    const result = login(email, password);
-
-    if (result.success) {
-      navigate("/");
-    } else {
-      setError(result.message);
-    }
-  };
-
->>>>>>> master
   return (
     <section className={styles.wrapper}>
       <header className={styles.header}>
@@ -39,12 +11,7 @@ function LoginForm() {
         </p>
       </header>
 
-<<<<<<< HEAD
       <form className={styles.form}>
-=======
-      <form className={styles.form} onSubmit={handleSubmit}>
-        {error && <p className={styles.error}>{error}</p>}
->>>>>>> master
         <label className={styles.field} htmlFor="email">
           <span>Email</span>
           <input
@@ -53,11 +20,6 @@ function LoginForm() {
             type="email"
             placeholder="voce@exemplo.com"
             autoComplete="email"
-<<<<<<< HEAD
-=======
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
->>>>>>> master
             required
           />
         </label>
@@ -70,11 +32,6 @@ function LoginForm() {
             type="password"
             placeholder="Digite sua senha"
             autoComplete="current-password"
-<<<<<<< HEAD
-=======
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
->>>>>>> master
             required
           />
         </label>
@@ -88,15 +45,9 @@ function LoginForm() {
         <button type="submit" className={styles.submitButton}>
           Entrar
         </button>
-<<<<<<< HEAD
         <a href="#" className={styles.forgotPassword}>
           Não tem uma conta? Cadastre-se
         </a>
-=======
-        <Link to="/cadastro" className={styles.forgotPassword}>
-          Não tem uma conta? Cadastre-se
-        </Link>
->>>>>>> master
       </form>
     </section>
   );
