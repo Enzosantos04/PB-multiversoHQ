@@ -4,9 +4,15 @@ import Footer from "../components/Footer";
 import Contact from "../components/Contact";
 
 function ContactPage() {
+ const{
+    searchTerm,setSearchTerm,usuarioAtual,}=useComics();
+    const navigate = useNavigate()
+  const handleChange = (e) =>{setSearchTerm(e.target.value);};
+
+
   return (
     <>
-      <Header />
+      <Header onChange={handleChange} value={searchTerm} />
       <main>
         <Contact />
       </main>

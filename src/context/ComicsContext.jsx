@@ -29,6 +29,7 @@ export const MOCK_USERS = [
     id: 4,
     nome: "Bruno DC",
     email: "bruno@email.com",
+    senha: "1234",
     logado: true,
     plano: "dc", // aluguel DC grátis, Marvel preço cheio
   },
@@ -52,6 +53,8 @@ export const PRECO_COMPRA = 29.9;
 export const PRECO_ALUGUEL_CHEIO = 29.9;
 export const PRECO_FRETE = 15.0;
 export const DESCONTO_LOGIN = 0.15;
+
+
 
 export function calcularPrecoAluguel(usuario, publisherId) {
   // Sem login → preço cheio
@@ -223,6 +226,41 @@ export function ComicsProvider({ children }) {
   }
 
   const totalItens = carrinho.reduce((acc, i) => acc + i.quantidade, 0);
+function login(email, password) {
+    // Busca usuário pelo email (mock simples)
+    const user = users.find((u) => u.email === email);
+    
+    if (user && user.password === password) {
+      setUsuarioAtual(user);
+      return { success: true };
+    }
+    
+    return { success: false, message: "E-mail ou senha incorretos." };
+  }
+
+  function register(name, email, password) {
+    // Verifica se usuário já existe
+    if (users.find((u) => u.email === email)) {
+      return { success: false, message: "Este e-mail já está cadastrado." };
+    }
+
+    const newUser = {
+      id: users.length + 1,
+      nome: name,
+      email: email,
+      password: password,
+      logado: true,
+      plano: null,
+    };
+
+    setUsers((prev) => [...prev, newUser]);
+    setUsuarioAtual(newUser);
+    return { success: true };
+  }
+
+  function logout() {
+    setUsuarioAtual(MOCK_USERS[0]);
+  }
 
   return (
     <ComicsContext.Provider
@@ -239,7 +277,9 @@ export function ComicsProvider({ children }) {
         // Auth
         usuarioAtual,
         setUsuarioAtual,
-        MOCK_USERS,
+        MOCK_USERS, login,
+        logout,
+        register,
         // Cart
         carrinho,
         addToCart,

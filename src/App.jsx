@@ -16,9 +16,12 @@ import FormasPagamentoPage from "./pages/FormasPagamentoPage";
 import TrocasDevolucoesPage from "./pages/TrocasDevolucoesPage";
 import FAQPage from "./pages/FAQPage";
 import ComicDetailPage from "./pages/ComicDetailPage";
+import RegisterPage from "./pages/RegisterPage"
+import MinhaContaPage from "./pages/MinhaContaPage";
 
 function App() {
   return (
+  
     <ComicsProvider>
       <BrowserRouter>
         <ScrollToTop />
@@ -38,6 +41,8 @@ function App() {
           <Route path="/trocas-devolucoes" element={<TrocasDevolucoesPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/quadrinho/:id" element={<ComicDetailPage />} />
+          <Route path="/cadastro" element={<RegisterPage/>} />
+           <Route path="/minhaConta" element={<MinhaContaPage/>} />
         </Routes>
       </BrowserRouter>
     </ComicsProvider>

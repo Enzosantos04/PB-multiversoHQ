@@ -1,6 +1,29 @@
 import styles from "./modules/login.module.css";
-
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useComics } from "../context/ComicsContext";
 function LoginForm() {
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { login } = useComics();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError("");
+
+    const result = login(email, password);
+
+    if (result.success) {
+      navigate("/");
+    } else {
+      setError(result.message);
+    }
+  };
+  
   return (
     <section className={styles.wrapper}>
       <header className={styles.header}>
@@ -11,7 +34,7 @@ function LoginForm() {
         </p>
       </header>
 
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.field} htmlFor="email">
           <span>Email</span>
           <input
@@ -20,6 +43,7 @@ function LoginForm() {
             type="email"
             placeholder="voce@exemplo.com"
             autoComplete="email"
+            onChange={(e)=> setEmail.target.value}
             required
           />
         </label>
@@ -32,6 +56,7 @@ function LoginForm() {
             type="password"
             placeholder="Digite sua senha"
             autoComplete="current-password"
+             onChange={(e)=> setPassword.target.value}
             required
           />
         </label>
@@ -45,9 +70,9 @@ function LoginForm() {
         <button type="submit" className={styles.submitButton}>
           Entrar
         </button>
-        <a href="#" className={styles.forgotPassword}>
-          Não tem uma conta? Cadastre-se
-        </a>
+         <Link to="/cadastro" className={styles.forgotPassword}>
+              Não tem uma conta? Cadastre-se
+            </Link>
       </form>
     </section>
   );

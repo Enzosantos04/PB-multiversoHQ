@@ -5,8 +5,7 @@ import logo from "../images/logo.png";
 import SearchBar from "./SearchBar";
 import { useComics } from "../context/ComicsContext";
 import { IoCartOutline } from "react-icons/io5";
-import { GoSun } from "react-icons/go";
-import { GoMoon } from "react-icons/go";
+import { GoSun, GoMoon } from "react-icons/go";
 
 function Header({ onChange = () => {}, value = "" }) {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
