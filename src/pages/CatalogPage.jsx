@@ -15,29 +15,25 @@ const SECTIONS = [
 const CarouselRow = ({ section, items, loading }) => {
   const rowRef = useRef(null);
   const scroll = (dir) =>
-    rowRef.current?.scrollBy({ left: dir * 280, behavior: "smooth" });
+    rowRef.current?.scrollBy({ left: dir * 300, behavior: "smooth" });
 
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
-        <span
-          className={styles.accentBar}
-          style={{ background: section.accent }}
-        />
-        <h2 className={styles.sectionTitle} style={{ color: section.accent }}>
+        <h2 className={styles.sectionTitle}>
           {section.label}
         </h2>
         <div className={styles.arrows}>
           <button
             className={styles.arrowBtn}
-            onClick={() => scroll(-2)}
+            onClick={() => scroll(-1)}
             aria-label="scroll left"
           >
             ‹
           </button>
           <button
             className={styles.arrowBtn}
-            onClick={() => scroll(2)}
+            onClick={() => scroll(1)}
             aria-label="scroll right"
           >
             ›
@@ -47,21 +43,20 @@ const CarouselRow = ({ section, items, loading }) => {
 
       <div className={styles.rowWrapper} ref={rowRef}>
         {loading
-          ? Array.from({ length: 4 }).map((_, i) => (
+          ? Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className={styles.skeleton} />
             ))
           : items.map((comic) => (
               <div
                 key={comic.id}
                 className={styles.cardWrapper}
-                style={{ "--accent": section.accent }}
               >
                 <CardQuadrinho
                   id={comic.id}
                   titulo={comic.titulo}
                   imagem={comic.imagem}
                   categoria={comic.categoria}
-                  preco={undefined}
+                  preco={comic.preco}
                   publisherId={comic.publisherId}
                 />
               </div>
@@ -88,53 +83,29 @@ export default function CatalogPage() {
   const handleChange = (e) => setSearchTerm(e.target.value);
   const isSearching = searchTerm.length > 0;
 
-  const rowRef = useRef(null);
-  const scroll = (dir) =>
-    rowRef.current?.scrollBy({ left: dir * 280, behavior: "smooth" });
-
   return (
     <div className={styles.page}>
       <Header onChange={handleChange} value={searchTerm} />
 
-      <div className={styles.pageHeader}>
+      <header className={styles.pageHeader}>
         <div className={styles.headerInner}>
-          <span className={styles.storeBadge}>★ MULTIVERSO HQ</span>
-          <h1 className={styles.pageTitle}>Catálogo</h1>
+          <span className={styles.storeBadge}>MULTIVERSO HQ &bull; CATALOGO OFICIAL</span>
+          <h1 className={styles.pageTitle}>Explore o Acervo</h1>
           <p className={styles.pageSubtitle}>
-            Explore o universo dos quadrinhos
+            Milhares de histórias, heróis e vilões esperando por você. O maior catálogo de quadrinhos digitais do Brasil.
           </p>
         </div>
-      </div>
+      </header>
 
       <main className={styles.main}>
         {isSearching ? (
           <div className={styles.section}>
             <div className={styles.sectionHeader}>
-              <span
-                className={styles.accentBar}
-                style={{ background: "#F5A623" }}
-              />
-              <h2 className={styles.sectionTitle} style={{ color: "#F5A623" }}>
+              <h2 className={styles.sectionTitle}>
                 Resultados para "{searchTerm}"
               </h2>
-              <div className={styles.arrows}>
-                <button
-                  className={styles.arrowBtn}
-                  onClick={() => scroll(-2)}
-                  aria-label="scroll left"
-                >
-                  ‹
-                </button>
-                <button
-                  className={styles.arrowBtn}
-                  onClick={() => scroll(2)}
-                  aria-label="scroll right"
-                >
-                  ›
-                </button>
-              </div>
             </div>
-            <div className={styles.rowWrapper} ref={rowRef}>
+            <div className={styles.rowWrapper} style={{ flexWrap: 'wrap', overflowX: 'visible' }}>
               {loading
                 ? Array.from({ length: 4 }).map((_, i) => (
                     <div key={i} className={styles.skeleton} />
@@ -143,7 +114,6 @@ export default function CatalogPage() {
                     <div
                       key={comic.id}
                       className={styles.cardWrapper}
-                      style={{ "--accent": "#F5A623" }}
                     >
                       <CardQuadrinho
                         id={comic.id}

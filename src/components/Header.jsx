@@ -22,38 +22,42 @@ function Header({ onChange = () => {}, value = "" }) {
 
   return (
     <header className={styles.header}>
-      <Link to="/" className={styles.logoLink}>
-        <img src={logo} alt="Logo" className={styles.logo} />
-      </Link>
-
-      <div className={styles.headerActions}>
-        <Link to="/carrinho" className={styles.cartLink}>
-          <IoCartOutline size={24} color="red" />
-          {totalItens > 0 && (
-            <span className={styles.cartBadge}>{totalItens}</span>
-          )}
+      <div className={styles.headerTop}>
+        <Link to="/" className={styles.logoLink}>
+          <img src={logo} alt="MultiversoHQ Logo" className={styles.logo} />
         </Link>
-        <button
-          onClick={toggleTheme}
-          className={styles.themeToggle}
-          aria-label="Alternar tema"
-        >
-          {theme === "light" ? <GoSun color="red" /> : <GoMoon color="red" />}
-        </button>
+
+        <section className={styles.search}>
+          <SearchBar value={value} onChange={onChange} />
+        </section>
+
+        <div className={styles.headerActions}>
+          <button
+            onClick={toggleTheme}
+            className={styles.themeToggle}
+            aria-label="Alternar tema"
+          >
+            {theme === "light" ? <GoSun size={20} /> : <GoMoon size={20} />}
+          </button>
+          
+          <Link to="/carrinho" className={styles.cartLink}>
+            <IoCartOutline size={24} />
+            {totalItens > 0 && (
+              <span className={styles.cartBadge}>{totalItens}</span>
+            )}
+          </Link>
+          
+          <Link to="/login" className={styles.loginBtn}>
+            Entrar
+          </Link>
+        </div>
       </div>
 
-      <section className={styles.search}>
-        <SearchBar value={value} onChange={onChange} />
-      </section>
-
-      <nav className={styles.nav} aria-label="Principal">
-        <Link to="/">Home</Link>
-        <Link to="/catalogo">Catalogo</Link>
-        <Link to="/planos">Planos</Link>
-        <Link to="/contato">Contato</Link>
-        <Link to="/login" className={styles.loginBtn}>
-          Login
-        </Link>
+      <nav className={styles.nav} aria-label="Navegação Principal">
+        <Link to="/" className={styles.navLink}>Início</Link>
+        <Link to="/catalogo" className={styles.navLink}>Catálogo</Link>
+        <Link to="/planos" className={styles.navLink}>Planos de Assinatura</Link>
+        <Link to="/contato" className={styles.navLink}>Contato</Link>
       </nav>
     </header>
   );

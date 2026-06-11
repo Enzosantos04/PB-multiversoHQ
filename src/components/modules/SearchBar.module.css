@@ -1,6 +1,8 @@
 .searchContainer {
   position: relative;
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .inputWrapper {
@@ -11,36 +13,44 @@
 
 .searchInput {
   width: 100%;
-  padding: 0.75rem 1.125rem;
-  background: var(--input-bg);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  border-radius: 0.625rem;
-  color: var(--text-color);
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: var(--transition-smooth);
   text-align: center;
 }
 
 .searchInput:focus {
   outline: none;
-  background: var(--input-bg);
-  border-color: rgba(239, 68, 68, 0.7);
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-  filter: brightness(1.1);
+  background: var(--bg-primary);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.searchInput::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 .loadingSpinner {
   position: absolute;
-  right: 15px;
+  right: 1.25rem;
+  pointer-events: none;
 }
 
 .spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(239, 68, 68, 0.1);
-  border-top-color: #dc2626;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-soft);
+  border-top-color: var(--accent);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes spin {
@@ -49,46 +59,54 @@
 
 .dropdown {
   position: absolute;
-  top: 110%;
+  top: calc(100% + 1rem);
   left: 0;
   right: 0;
-  background: var(--card-bg);
+  background: var(--bg-header);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
   z-index: 2000;
-  max-height: 400px;
+  max-height: 450px;
   overflow-y: auto;
+  animation: slideDown 0.3s var(--transition-bounce);
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .suggestionsList {
   list-style: none;
-  padding: 0.5rem;
+  padding: 0.75rem;
   margin: 0;
 }
 
 .suggestionItem {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
+  gap: 1.25rem;
+  padding: 0.875rem;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: var(--transition-smooth);
 }
 
 .suggestionItem:hover {
-  background: rgba(239, 68, 68, 0.08);
+  background: var(--accent-soft);
+  transform: translateX(4px);
 }
 
 .suggestionImage {
-  width: 45px;
-  height: 65px;
+  width: 50px;
+  aspect-ratio: 2 / 3;
   flex-shrink: 0;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   overflow: hidden;
-  background: #f3f4f6;
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-sm);
 }
 
 .suggestionImage img {
@@ -105,14 +123,28 @@
 }
 
 .suggestionTitle {
-  font-weight: 700;
-  color: var(--text-color);
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
 .suggestionPublisher {
   font-size: 0.75rem;
-  color: #dc2626;
-  font-weight: 600;
+  color: var(--accent);
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Custom scrollbar for dropdown */
+.dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+.dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dropdown::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 10px;
 }

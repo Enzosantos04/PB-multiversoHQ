@@ -1,111 +1,121 @@
-.container {
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  background: var(--bg-color);
-  position: relative;
-  transition: background 0.3s ease;
-  overflow-y: hidden;
-  width: 100%;
-  max-width: 100vw;
+  background-color: var(--bg-color);
 }
 
-.container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 25%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.07) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: pulse 4s ease-in-out infinite;
-  pointer-events: none;
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding-bottom: 4rem;
 }
 
-.container::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 25%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.05) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: pulse 4s ease-in-out infinite 2s;
-  pointer-events: none;
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
-}
-
-.hero {
-  position: relative;
-  z-index: 10;
-  max-width: 1500px;
+.gallerySection {
+  max-width: 1400px;
   margin: 0 auto;
-  /* top padding accounts for the fixed header */
-  padding: 1.5rem 1.5rem 3rem;
+  padding: 0 2rem;
+  width: 100%;
 }
 
-.hero h2 {
-  font-size: 2rem;
-  font-weight: 900;
-  background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0 0 2rem 0;
-  text-align: center;
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-subtle);
 }
 
-.carrossel {
+.sectionTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sectionMarker {
+  width: 6px;
+  height: 2.5rem;
+  background: var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.sectionLink {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-bounce);
+}
+
+.sectionLink:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateX(4px);
+}
+
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  padding: 0.5rem 0;
-  /* fixes card height misalignment */
-  align-items: stretch;
+  padding: 4rem 2rem;
+  gap: 1rem;
+  color: var(--text-muted);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-subtle);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding: 1rem 1rem 2rem;
-  }
-
-  .hero h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .carrossel {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
   }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    padding: 0.75rem 0.75rem 1.5rem;
+  
+  .sectionTitle {
+    font-size: 2rem;
   }
-
-  .carrossel {
-    gap: 0.75rem;
+  
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
   }
-}
-
-@media (min-width: 1024px) {
-  .carrossel {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  
+  .gallerySection {
+    padding: 0 1rem;
   }
 }
