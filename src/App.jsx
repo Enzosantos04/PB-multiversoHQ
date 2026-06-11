@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ComicsProvider } from "./context/ComicsContext";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./utils/ScrollToTop";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import CatalogPage from "./pages/CatalogPage";
