@@ -57,6 +57,7 @@ function Contact() {
       <header className={styles.hero}>
         <div className={styles.heroContent}>
           <span className={styles.heroCategory}>Atendimento</span>
+          <br/>
           <h1>Entre em Contato</h1>
           <p className={styles.description}>
             Dúvidas, sugestões ou apenas quer bater um papo sobre quadrinhos?
@@ -129,7 +130,7 @@ function Contact() {
             </form>
           ) : (
             <div className={styles.successMessage}>
-              Sua mensagem foi enviada com sucesso! 🚀
+              Sua mensagem foi enviada com sucesso!
               <br />
               <small style={{ fontWeight: 400, opacity: 0.8 }}>
                 Entraremos em contato em breve.

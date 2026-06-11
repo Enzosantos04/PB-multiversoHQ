@@ -11,8 +11,9 @@
 .container h1 {
   font-size: 2.5rem;
   margin-bottom: 30px;
+  margin-top: 60px;
   text-align: center;
-  color: #007bff; /* DC Blue as a primary color for this page to differentiate */
+  color: #007bff;
 }
 
 .container h2 {
