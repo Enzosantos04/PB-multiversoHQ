@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 // ============================================================
 // MOCK USERS — 4 situações cadastrais diferentes
@@ -29,7 +29,7 @@ export const MOCK_USERS = [
     id: 4,
     nome: "Bruno DC",
     email: "bruno@email.com",
-    senha: "1234",
+    password: "1234",
     logado: true,
     plano: "dc", // aluguel DC grátis, Marvel preço cheio
   },
@@ -124,6 +124,7 @@ export function ComicsProvider({ children }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   // --- Auth state (mock) ---
+  const [users, setUsers] = useState(MOCK_USERS);
   // Começa como visitante (MOCK_USERS[0])
   const [usuarioAtual, setUsuarioAtual] = useState(MOCK_USERS[0]);
 
