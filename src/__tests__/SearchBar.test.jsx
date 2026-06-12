@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
-import SearchBar from './SearchBar';
+import SearchBar from '../components/SearchBar';
 
 describe('SearchBar Component', () => {
   it('deve renderizar o campo de busca corretamente', () => {

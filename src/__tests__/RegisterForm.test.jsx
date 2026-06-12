@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import { ComicsProvider } from '../context/ComicsContext';
-import RegisterForm from './RegisterForm';
+import RegisterForm from '../components/RegisterForm';
 
 // Mock do window.alert (Vitest)
 window.alert = vi.fn();
