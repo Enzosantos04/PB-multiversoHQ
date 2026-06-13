@@ -29,8 +29,8 @@ export function calcularFrete(usuario) {
 
 const ComicsContext = createContext(null);
 
-// ✅ Sem proxy — mobile não tem restrição de CORS
-// ✅ Trocado VITE_ por EXPO_PUBLIC_
+// Sem proxy — mobile não tem restrição de CORS
+// Trocado VITE_ por EXPO_PUBLIC_
 const mykey = process.env.EXPO_PUBLIC_COMIC_VINE_API_KEY;
 
 async function fetchVolumes(extraParams = "") {

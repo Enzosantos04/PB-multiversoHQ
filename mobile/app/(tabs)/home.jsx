@@ -2,10 +2,12 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView, 
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { useComics } from '../../context/ComicsContext'
+import { useAuth } from '../../context/AuthContext'
 
 export default function HomeScreen() {
   const router = useRouter()
-  const { marvel, dc, recent, iconic, loading, usuarioAtual, logout } = useComics()
+  const { marvel, dc, recent, iconic, loading, usuarioAtual } = useComics()
+  const { logout } = useAuth()
 
   const handleSair = () => {
     logout()

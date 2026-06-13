@@ -32,6 +32,12 @@ export default function CarrinhoPage() {
 
   const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
 
+  // Estados do cálculo de frete
+  const [cep, setCep] = useState("");
+  const [freteCalculado, setFreteCalculado] = useState(null);
+  const [localizacao, setLocalizacao] = useState(null);
+  const [carregandoLocalizacao, setCarregandoLocalizacao] = useState(false);
+
   const handleChange = (e) => setSearchTerm(e.target.value);
 
   // Calcula preço de cada item conforme usuário atual
@@ -46,8 +52,89 @@ export default function CarrinhoPage() {
     0,
   );
 
-  const frete = calcularFrete(usuarioAtual);
+  // Frete original do sistema + frete calculado por CEP/localização
+  const freteBase = carrinho.length > 0 ? calcularFrete(usuarioAtual) : 0;
+  const frete = freteCalculado !== null ? freteCalculado : freteBase;
   const total = subtotal + frete;
+
+  function calcularFretePorCep() {
+    const cepLimpo = cep.replace(/\D/g, "");
+
+    if (cepLimpo.length !== 8) {
+      alert("Digite um CEP válido com 8 números.");
+      return;
+    }
+
+    const prefixo = Number(cepLimpo.slice(0, 2));
+
+    let valorFrete = 18;
+
+    // Simulação de regra de negócio:
+    // CEPs 20-28: Rio de Janeiro
+    // CEPs 30-39: Minas Gerais
+    // Outros: frete padrão
+    if (prefixo >= 20 && prefixo <= 28) {
+      valorFrete = 8;
+    } else if (prefixo >= 30 && prefixo <= 39) {
+      valorFrete = 12;
+    }
+
+    setFreteCalculado(valorFrete);
+  }
+
+  function usarLocalizacaoAtual() {
+    if (!navigator.geolocation) {
+      alert("Geolocalização não é suportada neste navegador.");
+      return;
+    }
+
+    setCarregandoLocalizacao(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+
+        setLocalizacao({
+          latitude,
+          longitude,
+        });
+
+        let valorFrete = 18;
+
+        // Rio de Janeiro aproximado
+        if (
+          latitude >= -23.2 &&
+          latitude <= -22.6 &&
+          longitude >= -43.8 &&
+          longitude <= -42.8
+        ) {
+          valorFrete = 8;
+        }
+
+        // Minas Gerais aproximado
+        else if (
+          latitude >= -22.5 &&
+          latitude <= -14.0 &&
+          longitude >= -51.0 &&
+          longitude <= -39.5
+        ) {
+          valorFrete = 12;
+        }
+
+        setFreteCalculado(valorFrete);
+        setCarregandoLocalizacao(false);
+      },
+      () => {
+        alert("Não foi possível obter sua localização.");
+        setCarregandoLocalizacao(false);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      },
+    );
+  }
 
   // Descrição do desconto aplicado
   function descricaoPreco(item) {
@@ -98,7 +185,6 @@ export default function CarrinhoPage() {
 
       <main className={styles.main}>
         <h1 className={styles.pageTitle}>
-          {" "}
           <IoCartOutline color="red" /> Carrinho
         </h1>
 
@@ -119,6 +205,7 @@ export default function CarrinhoPage() {
               </p>
             </div>
           </div>
+
           <div className={styles.freteInfo}>
             {frete === 0 ? (
               <span className={styles.freteGratis}>🚚 Frete grátis!</span>
@@ -145,6 +232,7 @@ export default function CarrinhoPage() {
               {carrinho.map((item) => {
                 const preco = precoItem(item);
                 const desconto = descricaoPreco(item);
+
                 return (
                   <div key={item.cartKey} className={styles.itemCard}>
                     <img
@@ -152,16 +240,24 @@ export default function CarrinhoPage() {
                       alt={item.titulo}
                       className={styles.itemImagem}
                     />
+
                     <div className={styles.itemInfo}>
                       <h3 className={styles.itemTitulo}>{item.titulo}</h3>
+
                       <span
-                        className={`${styles.itemAcao} ${item.acao === "rent" ? styles.acaoAluguel : styles.acaoCompra}`}
+                        className={`${styles.itemAcao} ${
+                          item.acao === "rent"
+                            ? styles.acaoAluguel
+                            : styles.acaoCompra
+                        }`}
                       >
                         {item.acao === "rent" ? "Aluguel" : "Compra"}
                       </span>
+
                       {desconto && (
                         <span className={styles.descontoTag}>{desconto}</span>
                       )}
+
                       <p className={styles.itemPrecoUnit}>
                         {preco === 0 ? (
                           <span className={styles.gratis}>Grátis</span>
@@ -170,28 +266,38 @@ export default function CarrinhoPage() {
                         )}
                       </p>
                     </div>
+
                     <div className={styles.itemControls}>
                       <div className={styles.qtdControls}>
                         <button
+                          type="button"
                           onClick={() => updateQuantidade(item.cartKey, -1)}
                         >
                           −
                         </button>
+
                         <span>{item.quantidade}</span>
+
                         <button
+                          type="button"
                           onClick={() => updateQuantidade(item.cartKey, 1)}
                         >
                           +
                         </button>
                       </div>
+
                       <p className={styles.itemTotal}>
                         {preco === 0 ? (
                           <span className={styles.gratis}>Grátis</span>
                         ) : (
-                          `R$ ${(preco * item.quantidade).toFixed(2).replace(".", ",")}`
+                          `R$ ${(preco * item.quantidade)
+                            .toFixed(2)
+                            .replace(".", ",")}`
                         )}
                       </p>
+
                       <button
+                        type="button"
                         className={styles.btnRemover}
                         onClick={() => removeFromCart(item.cartKey)}
                       >
@@ -202,7 +308,11 @@ export default function CarrinhoPage() {
                 );
               })}
 
-              <button className={styles.btnLimpar} onClick={limparCarrinho}>
+              <button
+                type="button"
+                className={styles.btnLimpar}
+                onClick={limparCarrinho}
+              >
                 Limpar carrinho
               </button>
             </div>
@@ -210,6 +320,52 @@ export default function CarrinhoPage() {
             {/* Resumo do pedido */}
             <div className={styles.resumo}>
               <h2 className={styles.resumoTitulo}>Resumo do Pedido</h2>
+
+              <div className={styles.freteBox}>
+                <h3>Calcular frete</h3>
+
+                <input
+                  className={styles.cepInput}
+                  type="text"
+                  placeholder="Digite seu CEP"
+                  value={cep}
+                  onChange={(e) => setCep(e.target.value)}
+                  maxLength={9}
+                />
+
+                <button
+                  className={styles.freteButton}
+                  type="button"
+                  onClick={calcularFretePorCep}
+                >
+                  Calcular pelo CEP
+                </button>
+
+                <button
+                  className={styles.localizacaoButton}
+                  type="button"
+                  onClick={usarLocalizacaoAtual}
+                  disabled={carregandoLocalizacao}
+                >
+                  {carregandoLocalizacao
+                    ? "Buscando localização..."
+                    : "Usar minha localização"}
+                </button>
+
+                {localizacao && (
+                  <p className={styles.localizacaoTexto}>
+                    Localização detectada: {localizacao.latitude.toFixed(4)},{" "}
+                    {localizacao.longitude.toFixed(4)}
+                  </p>
+                )}
+
+                {freteCalculado !== null && (
+                  <p className={styles.freteResultado}>
+                    Frete calculado: R${" "}
+                    {freteCalculado.toFixed(2).replace(".", ",")}
+                  </p>
+                )}
+              </div>
 
               <div className={styles.resumoLinha}>
                 <span>Subtotal</span>
@@ -253,6 +409,7 @@ export default function CarrinhoPage() {
               </div>
 
               <button
+                type="button"
                 className={styles.btnFinalizar}
                 onClick={() => {
                   limparCarrinho();

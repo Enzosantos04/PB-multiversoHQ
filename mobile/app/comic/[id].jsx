@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { useComics } from '../../context/ComicsContext'
+import ProtectedRoute from '../../components/ProtectedRoute'
 
 export default function ComicDetailsScreen() {
   const { id } = useLocalSearchParams()
@@ -28,6 +29,7 @@ export default function ComicDetailsScreen() {
   const precoAluguel = calcularPrecoAluguel(usuarioAtual, comic.publisherId)
 
   return (
+    <ProtectedRoute>
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Botão voltar */}
       <TouchableOpacity style={styles.back} onPress={() => router.back()}>
@@ -74,6 +76,7 @@ export default function ComicDetailsScreen() {
         </TouchableOpacity>
       </View>
     </ScrollView>
+    </ProtectedRoute>
   )
 }
 
