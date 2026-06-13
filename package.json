@@ -1,12 +1,8 @@
-{
+ {
   "name": "pb-multiversohq",
   "private": true,
-  "workspaces": [
-    "web",
-    "mobile"
-  ],
   "scripts": {
-    "web": "cd web && npm run dev",
-    "mobile": "cd mobile && npm start"
+    "web": "npm --prefix web run dev",
+    "mobile": "npm --prefix mobile start"
   }
 }

@@ -32,6 +32,9 @@ const ComicsContext = createContext(null);
 // Sem proxy — mobile não tem restrição de CORS
 // Trocado VITE_ por EXPO_PUBLIC_
 const mykey = process.env.EXPO_PUBLIC_COMIC_VINE_API_KEY;
+console.log("API KEY carregada no app?", mykey ? "SIM" : "NÃO");
+console.log("Tamanho da API KEY:", mykey?.length);
+
 
 async function fetchVolumes(extraParams = "") {
   const apiUrl = `https://comicvine.gamespot.com/api/volumes/?api_key=${mykey}&format=json&field_list=id,name,image,publisher,description${extraParams}`;

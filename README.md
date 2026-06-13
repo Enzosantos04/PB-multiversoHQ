@@ -2,7 +2,7 @@
 
 Bem-vindo ao **Multiverso HQ**, uma plataforma moderna e imersiva dedicada aos amantes de quadrinhos Marvel e DC.
 
-O projeto evoluiu para uma estrutura em **monorepo**, reunindo no mesmo repositório duas aplicações:
+O projeto está organizado em formato de **monorepo manual**, reunindo no mesmo repositório duas aplicações independentes:
 
 * 🌐 **Web** — aplicação React com Vite
 * 📱 **Mobile** — aplicação React Native com Expo Router
@@ -40,12 +40,15 @@ Este projeto foi realizado em grupo pelos alunos:
 ### 📱 Mobile
 
 * **React Native**: desenvolvimento da aplicação mobile.
-* **Expo**: ambiente para execução e desenvolvimento mobile.
+* **Expo SDK 54**: ambiente para execução e desenvolvimento mobile.
 * **Expo Router**: navegação baseada em arquivos.
 * **React Navigation**: suporte à navegação mobile.
 * **AsyncStorage**: armazenamento local no dispositivo.
 * **Context API**: gerenciamento global dos dados da aplicação.
 * **Expo Vector Icons**: biblioteca de ícones para interface mobile.
+* **Expo Location**: recurso de localização do dispositivo.
+* **Expo Local Authentication**: autenticação com biometria.
+* **Expo Constants**: suporte a constantes e configurações do ambiente Expo.
 
 ---
 
@@ -64,23 +67,38 @@ Este projeto foi realizado em grupo pelos alunos:
   * Simulação de usuários com diferentes planos.
   * Cálculo automático de descontos.
   * Regras de frete e aluguel baseadas no perfil do usuário.
+* **Cálculo de Frete**: cálculo por CEP e localização.
 * **Tema Dark/Light**: interface adaptável à preferência do usuário.
 * **Formulário de Contato**: envio de mensagens integrado com Formspree.
 * **Responsividade**: layout otimizado para desktop e dispositivos móveis.
 
 ### 📱 Aplicação Mobile
 
-* **Navegação por Abas**: estrutura mobile organizada com tabs.
-* **Tela Inicial**: apresentação da aplicação.
+* **Navegação Mobile**: estrutura organizada com Expo Router e Drawer Navigation.
+* **Tela Inicial**: apresentação da aplicação e seções principais.
 * **Catálogo Mobile**: listagem de quadrinhos na interface mobile.
 * **Detalhes de Quadrinhos**: visualização individual de cada item.
 * **Carrinho**: tela dedicada para itens selecionados.
+* **Cálculo de Frete**: cálculo por CEP e localização do dispositivo.
 * **Login**: tela de autenticação no app mobile.
-* **Context API**: gerenciamento de dados globais de quadrinhos.
+* **Biometria**: autenticação com recurso nativo do dispositivo.
+* **Rotas Protegidas**: controle de acesso às telas internas.
+* **Context API**: gerenciamento de dados globais de autenticação e quadrinhos.
 
 ---
 
 ## 📁 Estrutura do Projeto
+
+```txt
+PB-multiversoHQ/
+├── web/                  # Aplicação Web com React + Vite
+├── mobile/               # Aplicação Mobile com React Native + Expo
+├── package.json          # Scripts gerais do monorepo manual
+├── README.md
+└── .gitignore
+```
+
+### Principais pastas
 
 * `web/src/components`: componentes reutilizáveis da aplicação web.
 * `web/src/pages`: páginas completas da aplicação web.
@@ -89,6 +107,7 @@ Este projeto foi realizado em grupo pelos alunos:
 * `web/src/pages/modules`: estilos CSS específicos por página.
 * `mobile/app`: telas e rotas da aplicação mobile com Expo Router.
 * `mobile/context`: gerenciamento global de dados no mobile.
+* `mobile/components`: componentes reutilizáveis da aplicação mobile.
 * `mobile/assets`: imagens e ícones da aplicação mobile.
 
 ---
@@ -197,19 +216,13 @@ npm install
 Inicie o Expo:
 
 ```bash
-npx expo start
+npx expo start --clear
 ```
 
 Ou:
 
 ```bash
 npm start
-```
-
-Para limpar o cache do Expo:
-
-```bash
-npx expo start --clear
 ```
 
 Depois, escolha uma das opções no terminal:
@@ -219,7 +232,59 @@ a  → abrir no Android Emulator
 w  → abrir no navegador
 ```
 
-Também é possível escanear o QR Code usando o aplicativo Expo Go no celular.
+Também é possível escanear o QR Code usando o aplicativo **Expo Go** no celular.
+
+---
+
+## 📲 Testando o Mobile no Navegador do Celular
+
+Também é possível testar a versão mobile pelo navegador do celular.
+
+Dentro da pasta `mobile`, rode:
+
+```bash
+npx expo start --web
+```
+
+Ou:
+
+```bash
+npx expo start --clear
+```
+
+Depois pressione:
+
+```txt
+w
+```
+
+No navegador do computador, a aplicação normalmente abrirá em um endereço parecido com:
+
+```txt
+http://localhost:8081
+```
+
+Para acessar pelo celular, descubra o IP local do computador.
+
+No Windows, rode:
+
+```bash
+ipconfig
+```
+
+Procure pelo endereço IPv4, por exemplo:
+
+```txt
+192.168.0.105
+```
+
+Depois, no navegador do celular, acesse:
+
+```txt
+http://192.168.0.105:8081
+```
+
+> O celular e o computador precisam estar conectados à mesma rede Wi-Fi.
 
 ---
 
@@ -247,7 +312,54 @@ npm test
 
 Este projeto utiliza uma estrutura de **monorepo manual**, mantendo as aplicações Web e Mobile no mesmo repositório, porém com dependências e configurações separadas.
 
+As dependências devem ser instaladas separadamente em cada aplicação:
+
+```bash
+cd web
+npm install
+```
+
+```bash
+cd mobile
+npm install
+```
+
+Não é necessário rodar `npm install` na raiz do projeto.
+
 Essa abordagem evita misturar dependências específicas do Vite com dependências do Expo, deixando o projeto mais organizado, escalável e fácil de manter.
+
+---
+
+## 🧩 Scripts da Raiz
+
+O `package.json` da raiz pode ser usado apenas para scripts auxiliares.
+
+Exemplo:
+
+```json
+{
+  "name": "pb-multiversohq",
+  "private": true,
+  "scripts": {
+    "web": "npm --prefix web run dev",
+    "mobile": "npm --prefix mobile start"
+  }
+}
+```
+
+Com isso, também é possível rodar a aplicação web a partir da raiz:
+
+```bash
+npm run web
+```
+
+E a aplicação mobile:
+
+```bash
+npm run mobile
+```
+
+> Mesmo com esses scripts, a instalação das dependências deve ser feita separadamente dentro de `web/` e `mobile/`.
 
 ---
 
