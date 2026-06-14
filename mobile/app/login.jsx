@@ -85,6 +85,10 @@ export default function LoginScreen() {
         <Text style={styles.hint}>
           Faça login uma vez com e-mail e senha para ativar o acesso por biometria.
         </Text>
+
+        <Pressable style={styles.linkButton} onPress={() => router.push('/register')}>
+          <Text style={styles.linkText}>Não tem uma conta? Cadastre-se</Text>
+        </Pressable>
       </View>
     </View>
   )
