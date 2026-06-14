@@ -47,6 +47,16 @@ export default function DrawerLayout() {
               ),
             }}
           />
+
+          <Drawer.Screen
+            name="plans"
+            options={{
+              title: 'Meus Planos',
+              drawerIcon: ({ color }) => (
+                <Ionicons name="star-outline" size={20} color={color} />
+              ),
+            }}
+          />
         </Drawer>
       </GestureHandlerRootView>
     </ProtectedRoute>

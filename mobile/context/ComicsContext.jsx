@@ -146,11 +146,16 @@ export function ComicsProvider({ children }) {
     setUsuarioAtual(MOCK_USERS[0]);
   }
 
+  function setPlanoUsuario(plano) {
+    setUsuarioAtual((prev) => ({ ...prev, plano }));
+  }
+
   return (
     <ComicsContext.Provider value={{
       marvel, dc, recent, iconic, loading,
       searchResults, searchTerm, setSearchTerm,
       usuarioAtual, setUsuarioAtual, MOCK_USERS, login, logout,
+      setPlanoUsuario,
       carrinho, addToCart, removeFromCart, updateQuantidade, limparCarrinho, totalItens,
       calcularPrecoAluguel, calcularFrete,
       PRECO_COMPRA, PRECO_ALUGUEL_CHEIO, PRECO_FRETE,

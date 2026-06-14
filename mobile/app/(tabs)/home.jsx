@@ -57,9 +57,15 @@ export default function HomeScreen() {
         <View style={{ flex: 1 }}>
           <Text style={styles.headerTitle}>Multiverso HQ 🦸</Text>
           <Text style={styles.headerSubtitle}>
-            Olá, {usuarioAtual.nome}
+            Olá, {usuarioAtual.nome} {usuarioAtual.plano ? `• Plano ${usuarioAtual.plano.toUpperCase()}` : ''}
           </Text>
         </View>
+        <TouchableOpacity 
+          style={[styles.perfilBtn, { marginRight: 10, borderColor: usuarioAtual.plano ? '#4ade80' : 'rgba(239, 68, 68, 0.3)' }]} 
+          onPress={() => router.push('/(tabs)/plans')}
+        >
+          <Ionicons name="star-outline" size={22} color={usuarioAtual.plano ? '#4ade80' : '#ef4444'} />
+        </TouchableOpacity>
         <TouchableOpacity style={styles.perfilBtn} onPress={handleSair}>
           <Ionicons name="log-out-outline" size={22} color="#ef4444" />
         </TouchableOpacity>
