@@ -108,6 +108,15 @@ const loginStyles = StyleSheet.create({
     marginTop: 16,
     lineHeight: 18,
   },
+  linkButton: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  linkText: {
+    color: '#ef4444',
+    fontSize: 14,
+    fontWeight: '600',
+  },
 });
 
 export default loginStyles;
