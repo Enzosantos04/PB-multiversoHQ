@@ -11,14 +11,14 @@ const PLANS = [
     nome: 'Marvel Fan',
     preco: 'R$ 14,90/mês',
     desc: 'Aluguel grátis para todos os quadrinhos da Marvel.',
-    features: ['Acesso antecipado', 'Selos exclusivos', 'Frete fixo R$ 5,00'],
+    features: ['Acesso antecipado', 'Selos exclusivos', 'Frete Grátis'],
   },
   {
     id: 'dc',
     nome: 'DC Enthusiast',
     preco: 'R$ 14,90/mês',
     desc: 'Aluguel grátis para todos os quadrinhos da DC Comics.',
-    features: ['Conteúdo bônus', 'Suporte prioritário', 'Frete fixo R$ 5,00'],
+    features: ['Conteúdo bônus', 'Suporte prioritário', 'Frete Grátis'],
   },
   {
     id: 'superhero',

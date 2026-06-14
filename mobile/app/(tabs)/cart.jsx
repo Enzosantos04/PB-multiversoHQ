@@ -45,8 +45,19 @@ export default function CartScreen() {
     0
   )
 
+  const usuarioTemPlano = usuarioAtual.logado && usuarioAtual.plano !== null
+
   const freteBase = carrinho.length > 0 ? calcularFrete(usuarioAtual) : 0
-  const frete = freteCalculado !== null ? freteCalculado : freteBase
+
+  const frete =
+  carrinho.length === 0
+    ? 0
+    : usuarioTemPlano
+      ? 0
+      : freteCalculado !== null
+        ? freteCalculado
+        : freteBase
+
   const total = subtotal + frete
 
   function handleFinalizarPedido() {
@@ -55,6 +66,15 @@ export default function CartScreen() {
   }
 
   function calcularFretePorCep(cepInformado) {
+    if (usuarioTemPlano) {
+       setFreteCalculado(0)
+
+       Alert.alert(
+       'Frete grátis',
+    'Seu plano possui frete grátis.'
+  )
+  return
+}
     const cepLimpo = cepInformado.replace(/\D/g, '')
 
     if (cepLimpo.length !== 8) {
@@ -76,6 +96,15 @@ export default function CartScreen() {
   }
 
   async function usarLocalizacaoAtual() {
+    if (usuarioTemPlano) {
+       setFreteCalculado(0)
+
+       Alert.alert(
+       'Frete grátis',
+      'Seu plano possui frete grátis.'
+    )
+    return
+  }
     try {
       setLoadingLocation(true)
 

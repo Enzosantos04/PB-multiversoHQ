@@ -54,11 +54,27 @@ export default function CarrinhoPage() {
   );
 
   // Frete original do sistema + frete calculado por CEP/localização
+  const usuarioTemPlano = usuarioAtual.logado && usuarioAtual.plano !== null;
+
   const freteBase = carrinho.length > 0 ? calcularFrete(usuarioAtual) : 0;
-  const frete = freteCalculado !== null ? freteCalculado : freteBase;
+
+  const frete =
+   carrinho.length === 0
+    ? 0
+    : usuarioTemPlano
+      ? 0
+      : freteCalculado !== null
+        ? freteCalculado
+        : freteBase;
+
   const total = subtotal + frete;
 
   function calcularFretePorCep() {
+    if (usuarioTemPlano) {
+       setFreteCalculado(0);
+       alert("Seu plano possui frete grátis.");
+       return;
+    }
     const cepLimpo = cep.replace(/\D/g, "");
 
     if (cepLimpo.length !== 8) {
@@ -84,6 +100,11 @@ export default function CarrinhoPage() {
   }
 
   function usarLocalizacaoAtual() {
+    if (usuarioTemPlano) {
+       setFreteCalculado(0);
+       alert("Seu plano possui frete grátis.");
+       return;
+    }
     if (!navigator.geolocation) {
       alert("Geolocalização não é suportada neste navegador.");
       return;

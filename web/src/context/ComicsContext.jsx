@@ -77,8 +77,8 @@ export function calcularPrecoAluguel(usuario, publisherId) {
 }
 
 export function calcularFrete(usuario) {
-  // Qualquer plano ativo = frete grátis
   if (usuario.logado && usuario.plano !== null) return 0;
+
   return PRECO_FRETE;
 }
 

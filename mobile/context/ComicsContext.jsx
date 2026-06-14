@@ -10,7 +10,7 @@ export const MOCK_USERS = [
 
 export const PRECO_COMPRA = 29.9;
 export const PRECO_ALUGUEL_CHEIO = 29.9;
-export const PRECO_FRETE = 15.0;
+export const PRECO_FRETE = 15.0;;
 export const DESCONTO_LOGIN = 0.15;
 
 export function calcularPrecoAluguel(usuario, publisherId) {
@@ -24,6 +24,7 @@ export function calcularPrecoAluguel(usuario, publisherId) {
 
 export function calcularFrete(usuario) {
   if (usuario.logado && usuario.plano !== null) return 0;
+
   return PRECO_FRETE;
 }
 
