@@ -13,8 +13,11 @@ import { Ionicons } from '@expo/vector-icons'
 import * as Location from 'expo-location'
 import { useComics } from '../../context/ComicsContext'
 import styles from '../../styles/cart.styles.jsx'
+import successStyles from '../../styles/success.styles.jsx'
+import { useRouter } from 'expo-router'
 
 export default function CartScreen() {
+  const router = useRouter()
   const {
     carrinho,
     removeFromCart,
@@ -30,6 +33,7 @@ export default function CartScreen() {
   const [freteCalculado, setFreteCalculado] = useState(null)
   const [endereco, setEndereco] = useState(null)
   const [loadingLocation, setLoadingLocation] = useState(false)
+  const [pedidoFinalizado, setPedidoFinalizado] = useState(false)
 
   const precoItem = (item) => {
     if (item.acao === 'buy') return PRECO_COMPRA
@@ -44,6 +48,11 @@ export default function CartScreen() {
   const freteBase = carrinho.length > 0 ? calcularFrete(usuarioAtual) : 0
   const frete = freteCalculado !== null ? freteCalculado : freteBase
   const total = subtotal + frete
+
+  function handleFinalizarPedido() {
+    limparCarrinho()
+    setPedidoFinalizado(true)
+  }
 
   function calcularFretePorCep(cepInformado) {
     const cepLimpo = cepInformado.replace(/\D/g, '')
@@ -118,6 +127,29 @@ export default function CartScreen() {
     } finally {
       setLoadingLocation(false)
     }
+  }
+
+  if (pedidoFinalizado) {
+    return (
+      <View style={successStyles.container}>
+        <View style={successStyles.iconContainer}>
+          <Ionicons name="checkmark" size={60} color="#4ade80" />
+        </View>
+        <Text style={successStyles.title}>Pedido realizado!</Text>
+        <Text style={successStyles.subtitle}>
+          Seus quadrinhos estarão disponíveis em breve na sua coleção.
+        </Text>
+        <TouchableOpacity
+          style={successStyles.button}
+          onPress={() => {
+            setPedidoFinalizado(false)
+            router.push('/(tabs)/catalog')
+          }}
+        >
+          <Text style={successStyles.buttonText}>Voltar ao catálogo</Text>
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   if (carrinho.length === 0) {
@@ -246,7 +278,7 @@ export default function CartScreen() {
           <Text style={styles.totalValue}>R$ {total.toFixed(2)}</Text>
         </View>
 
-        <TouchableOpacity style={styles.checkout}>
+        <TouchableOpacity style={styles.checkout} onPress={handleFinalizarPedido}>
           <Text style={styles.checkoutText}>Finalizar pedido</Text>
         </TouchableOpacity>
       </View>
