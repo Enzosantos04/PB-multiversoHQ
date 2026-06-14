@@ -3,7 +3,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { Platform } from "react-native";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 const initialState = {
   user: null,
@@ -23,6 +23,14 @@ function authReducer(state, action) {
       };
 
     case "LOGIN":
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+        error: null,
+      };
+
+    case "UPDATE_USER":
       return {
         ...state,
         user: action.payload,
@@ -61,17 +69,10 @@ export function AuthProvider({ children }) {
       try {
         const storedUser = await AsyncStorage.getItem("@MultiversoHQ:user");
 
-        if (storedUser) {
-          dispatch({
-            type: "RESTORE_SESSION",
-            payload: JSON.parse(storedUser),
-          });
-        } else {
-          dispatch({
-            type: "RESTORE_SESSION",
-            payload: null,
-          });
-        }
+        dispatch({
+          type: "RESTORE_SESSION",
+          payload: storedUser ? JSON.parse(storedUser) : null,
+        });
       } catch {
         dispatch({
           type: "RESTORE_SESSION",
@@ -95,19 +96,79 @@ export function AuthProvider({ children }) {
     }
 
     const fakeUser = {
-      id: 1,
+      id: Date.now(),
       nome: "Usuário MultiversoHQ",
       email,
+      plano: null,
     };
 
-    // Salva sessão ativa
     await AsyncStorage.setItem("@MultiversoHQ:user", JSON.stringify(fakeUser));
-    // Salva usuário para biometria (persiste após logout)
-    await AsyncStorage.setItem("@MultiversoHQ:biometricUser", JSON.stringify(fakeUser));
+    await AsyncStorage.setItem(
+      "@MultiversoHQ:biometricUser",
+      JSON.stringify(fakeUser)
+    );
 
     dispatch({
       type: "LOGIN",
       payload: fakeUser,
+    });
+
+    return true;
+  }
+
+  async function register(nome, email, password) {
+    dispatch({ type: "CLEAR_ERROR" });
+
+    if (!nome || !email || !password) {
+      dispatch({
+        type: "SET_ERROR",
+        payload: "Preencha todos os campos.",
+      });
+      return false;
+    }
+
+    const newUser = {
+      id: Date.now(),
+      nome,
+      email,
+      plano: null,
+    };
+
+    await AsyncStorage.setItem("@MultiversoHQ:user", JSON.stringify(newUser));
+    await AsyncStorage.setItem(
+      "@MultiversoHQ:biometricUser",
+      JSON.stringify(newUser)
+    );
+
+    dispatch({
+      type: "LOGIN",
+      payload: newUser,
+    });
+
+    return true;
+  }
+
+  async function updateUser(updates) {
+    if (!state.user) return false;
+
+    const updatedUser = {
+      ...state.user,
+      ...updates,
+    };
+
+    await AsyncStorage.setItem(
+      "@MultiversoHQ:user",
+      JSON.stringify(updatedUser)
+    );
+
+    await AsyncStorage.setItem(
+      "@MultiversoHQ:biometricUser",
+      JSON.stringify(updatedUser)
+    );
+
+    dispatch({
+      type: "UPDATE_USER",
+      payload: updatedUser,
     });
 
     return true;
@@ -158,8 +219,9 @@ export function AuthProvider({ children }) {
       return false;
     }
 
-    // Busca o usuário persistido para biometria
-    const biometricUser = await AsyncStorage.getItem("@MultiversoHQ:biometricUser");
+    const biometricUser = await AsyncStorage.getItem(
+      "@MultiversoHQ:biometricUser"
+    );
 
     if (!biometricUser) {
       dispatch({
@@ -171,8 +233,7 @@ export function AuthProvider({ children }) {
     }
 
     const user = JSON.parse(biometricUser);
-    
-    // Restaura a sessão ativa
+
     await AsyncStorage.setItem("@MultiversoHQ:user", JSON.stringify(user));
 
     dispatch({
@@ -184,31 +245,8 @@ export function AuthProvider({ children }) {
   }
 
   async function logout() {
-    // Remove apenas a sessão ativa, mantém biometricUser
     await AsyncStorage.removeItem("@MultiversoHQ:user");
     dispatch({ type: "LOGOUT" });
-  }
-
-  async function register(nome, email, password) {
-    dispatch({ type: "CLEAR_ERROR" });
-
-    if (!nome || !email || !password) {
-      dispatch({
-        type: "SET_ERROR",
-        payload: "Preencha todos os campos.",
-      });
-      return false;
-    }
-
-    const newUser = {
-      id: Math.floor(Math.random() * 1000),
-      nome,
-      email,
-    };
-
-    // No registro, também salvamos para biometria
-    await AsyncStorage.setItem("@MultiversoHQ:biometricUser", JSON.stringify(newUser));
-    return true;
   }
 
   return (
@@ -216,9 +254,10 @@ export function AuthProvider({ children }) {
       value={{
         ...state,
         login,
+        register,
+        updateUser,
         loginWithBiometrics,
         logout,
-        register,
       }}
     >
       {children}

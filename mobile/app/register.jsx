@@ -1,8 +1,7 @@
-import { router } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import {
   Alert,
-  Platform,
   Pressable,
   Text,
   TextInput,
@@ -13,6 +12,7 @@ import { useAuth } from '../context/AuthContext'
 import styles from '../styles/register.styles.jsx'
 
 export default function RegisterScreen() {
+  const router = useRouter()
   const { register, error } = useAuth()
 
   const [nome, setNome] = useState('')
@@ -20,24 +20,27 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState('')
 
   async function handleRegister() {
-    const success = await register(nome, email, password)
+    try {
+      const success = await register(nome, email, password)
 
-    if (success) {
-      Alert.alert(
-        'Sucesso',
-        'Conta criada com sucesso!',
-        [
-          {
-            text: 'OK',
-            onPress: () => router.replace('/login'),
-          },
-        ]
-      )
+      console.log('Cadastro success:', success)
+
+      if (success) {
+        Alert.alert('Sucesso', 'Conta criada com sucesso!')
+
+        router.replace('/(tabs)/plans')
+      }
+    } catch (error) {
+      console.log('Erro ao cadastrar:', error)
+      Alert.alert('Erro', 'Não foi possível criar a conta.')
     }
   }
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
       <View style={styles.container}>
         <Text style={styles.title}>Multiverso HQ</Text>
         <Text style={styles.subtitle}>Crie sua conta</Text>
@@ -77,8 +80,13 @@ export default function RegisterScreen() {
             <Text style={styles.buttonText}>Cadastrar</Text>
           </Pressable>
 
-          <Pressable style={styles.linkButton} onPress={() => router.back()}>
-            <Text style={styles.linkText}>Já tem uma conta? Entre aqui</Text>
+          <Pressable
+            style={styles.linkButton}
+            onPress={() => router.replace('/login')}
+          >
+            <Text style={styles.linkText}>
+              Já tem uma conta? Entre aqui
+            </Text>
           </Pressable>
         </View>
       </View>

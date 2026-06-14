@@ -1,47 +1,49 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 // ============================================================
-// MOCK USERS — 4 situações cadastrais diferentes
+// MOCK USERS — 4 situações cadastrais diferentes e um visitante
 // ============================================================
+
+export const USUARIO_VISITANTE = {
+  id: null,
+  nome: "Usuário não logado",
+  email: null,
+  logado: false,
+  plano: null,
+};
+
 export const MOCK_USERS = [
   {
     id: 1,
-    nome: "Visitante",
-    email: null,
-    logado: false,
-    plano: null, // sem login
-  },
-  {
-    id: 2,
     nome: "Carlos Silva",
     email: "carlos@email.com",
     password: "1234",
     logado: true,
-    plano: null, // logado sem plano → 15% desconto no aluguel, paga frete
+    plano: null,
   },
   {
-    id: 3,
+    id: 2,
     nome: "Ana Marvel",
     email: "ana@email.com",
     password: "1234",
     logado: true,
-    plano: "marvel", // aluguel Marvel grátis, DC preço cheio
+    plano: "marvel",
   },
   {
-    id: 4,
+    id: 3,
     nome: "Bruno DC",
     email: "bruno@email.com",
     password: "1234",
     logado: true,
-    plano: "dc", // aluguel DC grátis, Marvel preço cheio
+    plano: "dc",
   },
   {
-    id: 5,
+    id: 4,
     nome: "Julia Super",
     email: "julia@email.com",
     password: "1234",
     logado: true,
-    plano: "superhero", // aluguel Marvel E DC grátis
+    plano: "superhero",
   },
 ];
 
@@ -49,8 +51,8 @@ export const MOCK_USERS = [
 // PRICING LOGIC
 // Preços base:
 //   compra:  R$ 29,90
-//   aluguel: R$ 29,90 (sem login) | R$ 25,42 (logado, -15%) | R$ 0 (coberto pelo plano)
-//   frete:   R$ 15,00 (sem login ou sem plano) | R$ 0 (qualquer plano ativo)
+//   aluguel: R$ 29,90 sem plano | R$ 0 quando coberto pelo plano
+//   frete:   R$ 15,00 sem plano | R$ 0 com qualquer plano ativo
 // ============================================================
 export const PRECO_COMPRA = 29.9;
 export const PRECO_ALUGUEL_CHEIO = 29.9;
@@ -63,23 +65,17 @@ export function calcularPrecoAluguel(usuario, publisherId) {
 
   const plano = usuario.plano;
 
-  // Plano superhero cobre tudo
+  // Plano SuperHerói cobre tudo
   if (plano === "superhero") return 0;
 
-  // Plano Marvel cobre quadrinhos Marvel (publisherId 31)
+  // Plano Marvel cobre quadrinhos Marvel
   if (plano === "marvel" && publisherId === 31) return 0;
 
-  // Plano DC cobre quadrinhos DC (publisherId 10)
+  // Plano DC cobre quadrinhos DC
   if (plano === "dc" && publisherId === 10) return 0;
 
-  // Logado sem cobertura de plano → 15% de desconto
+  // Logado sem cobertura de plano → 15% de desconto no aluguel
   return parseFloat((PRECO_ALUGUEL_CHEIO * (1 - DESCONTO_LOGIN)).toFixed(2));
-}
-
-export function calcularFrete(usuario) {
-  if (usuario.logado && usuario.plano !== null) return 0;
-
-  return PRECO_FRETE;
 }
 
 // ============================================================
@@ -129,8 +125,8 @@ export function ComicsProvider({ children }) {
   });
   // --- Auth state (mock) ---
   const [users, setUsers] = useState(MOCK_USERS);
-  // Começa como visitante (MOCK_USERS[0])
-  const [usuarioAtual, setUsuarioAtual] = useState(MOCK_USERS[0]);
+  // Começa como visitante (USUARIO_VISITANTE)
+  const [usuarioAtual, setUsuarioAtual] = useState(USUARIO_VISITANTE);
 
   // --- Cart state ---
   // Chave primária do item = `${id}_buy` ou `${id}_rent`
@@ -323,7 +319,7 @@ export function ComicsProvider({ children }) {
   }
 
   function logout() {
-    setUsuarioAtual(MOCK_USERS[0]);
+     setUsuarioAtual(USUARIO_VISITANTE);
   }
 
   return (
