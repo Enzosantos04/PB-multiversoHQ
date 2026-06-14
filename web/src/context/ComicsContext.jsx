@@ -15,6 +15,7 @@ export const MOCK_USERS = [
     id: 2,
     nome: "Carlos Silva",
     email: "carlos@email.com",
+    password: "1234",
     logado: true,
     plano: null, // logado sem plano → 15% desconto no aluguel, paga frete
   },
@@ -22,6 +23,7 @@ export const MOCK_USERS = [
     id: 3,
     nome: "Ana Marvel",
     email: "ana@email.com",
+    password: "1234",
     logado: true,
     plano: "marvel", // aluguel Marvel grátis, DC preço cheio
   },
@@ -37,6 +39,7 @@ export const MOCK_USERS = [
     id: 5,
     nome: "Julia Super",
     email: "julia@email.com",
+    password: "1234",
     logado: true,
     plano: "superhero", // aluguel Marvel E DC grátis
   },
@@ -122,7 +125,10 @@ export function ComicsProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [historicoPedidos, setHistoricoPedidos] = useState(() => {
+  const pedidosSalvos = localStorage.getItem("historicoPedidos");
+  return pedidosSalvos ? JSON.parse(pedidosSalvos) : [];
+});
   // --- Auth state (mock) ---
   const [users, setUsers] = useState(MOCK_USERS);
   // Começa como visitante (MOCK_USERS[0])
@@ -226,6 +232,37 @@ export function ComicsProvider({ children }) {
     setCarrinho([]);
   }
 
+  function finalizarPedido({ itens, subtotal, frete, total }) {
+  const novoPedido = {
+    id: `#${Date.now().toString().slice(-6)}`,
+    data: new Date().toLocaleDateString("pt-BR"),
+    usuarioEmail: usuarioAtual.email,
+    itens: itens.map((item) => ({
+      titulo: item.titulo,
+      tipo: item.acao === "rent" ? "Aluguel" : "Compra",
+      quantidade: item.quantidade,
+    })),
+    item: itens.map((item) => item.titulo).join(", "),
+    tipo: itens.some((item) => item.acao === "buy")
+      ? itens.some((item) => item.acao === "rent")
+        ? "Compra/Aluguel"
+        : "Compra"
+      : "Aluguel",
+    status: "Processando",
+    subtotal,
+    frete,
+    total,
+  };
+
+  setHistoricoPedidos((prev) => {
+    const atualizado = [novoPedido, ...prev];
+    localStorage.setItem("historicoPedidos", JSON.stringify(atualizado));
+    return atualizado;
+  });
+
+  return novoPedido;
+}
+
   const totalItens = carrinho.reduce((acc, i) => acc + i.quantidade, 0);
 function login(email, password) {
     // Busca usuário pelo email (mock simples)
@@ -240,24 +277,52 @@ function login(email, password) {
   }
 
   function register(name, email, password) {
-    // Verifica se usuário já existe
-    if (users.find((u) => u.email === email)) {
-      return { success: false, message: "Este e-mail já está cadastrado." };
-    }
-
-    const newUser = {
-      id: users.length + 1,
-      nome: name,
-      email: email,
-      password: password,
-      logado: true,
-      plano: null,
-    };
-
-    setUsers((prev) => [...prev, newUser]);
-    setUsuarioAtual(newUser);
-    return { success: true };
+  // Verifica se usuário já existe
+  if (users.find((u) => u.email === email)) {
+    return { success: false, message: "Este e-mail já está cadastrado." };
   }
+
+  const newUser = {
+    id: users.length + 1,
+    nome: name,
+    email: email,
+    password: password,
+    logado: true,
+    plano: null,
+  };
+
+  setUsers((prev) => [...prev, newUser]);
+  setUsuarioAtual(newUser);
+
+  return { success: true };
+}
+
+function assinarPlano(plano) {
+  if (!usuarioAtual.logado) {
+    return {
+      success: false,
+      message: "Você precisa estar logado para assinar um plano.",
+    };
+  }
+
+  const usuarioAtualizado = {
+    ...usuarioAtual,
+    plano,
+  };
+
+  setUsuarioAtual(usuarioAtualizado);
+
+  setUsers((prevUsers) =>
+    prevUsers.map((user) =>
+      user.email === usuarioAtual.email ? usuarioAtualizado : user
+    )
+  );
+
+  return {
+    success: true,
+    message: "Plano assinado com sucesso!",
+  };
+}
 
   function logout() {
     setUsuarioAtual(MOCK_USERS[0]);
@@ -281,6 +346,10 @@ function login(email, password) {
         MOCK_USERS, login,
         logout,
         register,
+        assinarPlano,
+        // Pedidos
+        historicoPedidos,
+        finalizarPedido,
         // Cart
         carrinho,
         addToCart,

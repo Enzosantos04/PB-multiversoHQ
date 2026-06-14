@@ -43,7 +43,8 @@ function LoginForm() {
             type="email"
             placeholder="voce@exemplo.com"
             autoComplete="email"
-            onChange={(e)=> setEmail.target.value}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
@@ -56,7 +57,8 @@ function LoginForm() {
             type="password"
             placeholder="Digite sua senha"
             autoComplete="current-password"
-             onChange={(e)=> setPassword.target.value}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>

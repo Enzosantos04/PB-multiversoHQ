@@ -28,9 +28,10 @@ export default function CarrinhoPage() {
     PRECO_COMPRA,
     searchTerm,
     setSearchTerm,
+    finalizarPedido,
   } = useComics();
 
-  const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
+  const [pedidoConfirmado, setPedidoConfirmado] = useState(null);
 
   // Estados do cálculo de frete
   const [cep, setCep] = useState("");
@@ -153,7 +154,7 @@ export default function CarrinhoPage() {
     return null;
   }
 
-  if (pedidoFinalizado) {
+  if (pedidoConfirmado) {
     return (
       <div className={styles.page}>
         <Header onChange={handleChange} value={searchTerm} />
@@ -167,7 +168,9 @@ export default function CarrinhoPage() {
             </p>
             <p className={styles.totalConfirmado}>
               Total pago:{" "}
-              <strong>R$ {total.toFixed(2).replace(".", ",")}</strong>
+             <strong>
+              R$ {pedidoConfirmado.total.toFixed(2).replace(".", ",")}
+              </strong>
             </p>
             <Link to="/" className={styles.btnVoltar}>
               Voltar para a Home
@@ -407,17 +410,26 @@ export default function CarrinhoPage() {
                 <span>Total</span>
                 <span>R$ {total.toFixed(2).replace(".", ",")}</span>
               </div>
-
               <button
-                type="button"
-                className={styles.btnFinalizar}
-                onClick={() => {
-                  limparCarrinho();
-                  setPedidoFinalizado(true);
+              type="button"
+              className={styles.btnFinalizar}
+              onClick={() => {
+                if (!usuarioAtual.logado) {
+                  alert("Faça login ou cadastre-se para finalizar o pedido.");
+                  return;
+                }
+                const pedido = finalizarPedido({
+                  itens: carrinho,
+                  subtotal,
+                  frete,
+                  total,
+                });
+                limparCarrinho();
+                setPedidoConfirmado(pedido);
                 }}
-              >
-                Finalizar Pedido
-              </button>
+                >
+                  Finalizar Pedido
+                  </button>
             </div>
           </div>
         )}

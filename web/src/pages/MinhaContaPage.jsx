@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useComics } from "../context/ComicsContext";
-import styles from "../components/modules/MinhaConta.module.css";
+import styles from "../pages/modules/MinhaConta.module.css";
 import { FaUserCircle } from "react-icons/fa";
 
 const PLANO_LABEL = {
@@ -13,15 +13,14 @@ const PLANO_LABEL = {
   superhero: "Plano SuperHerói",
 };
 
-const MOCK_HISTORICO = [
-  { id: "#8245", data: "12/05/2026", item: "The Amazing Spider-Man #1", tipo: "Aluguel", status: "Entregue" },
-  { id: "#8240", data: "05/05/2026", item: "Batman: Year One", tipo: "Compra", status: "Entregue" },
-  { id: "#8301", data: "24/05/2026", item: "Wonder Woman #12", tipo: "Aluguel", status: "Processando" },
-];
-
 export default function MinhaContaPage() {
-  const { usuarioAtual, searchTerm, setSearchTerm } = useComics();
+  const { usuarioAtual, searchTerm, setSearchTerm, historicoPedidos, logout } = useComics();
   const navigate = useNavigate();
+
+  function handleLogout() {
+  logout();
+  navigate("/");
+}
 
   useEffect(() => {
     if (!usuarioAtual.logado) {
@@ -30,6 +29,10 @@ export default function MinhaContaPage() {
   }, [usuarioAtual, navigate]);
 
   const handleChange = (e) => setSearchTerm(e.target.value);
+
+  const pedidosDoUsuario = historicoPedidos.filter(
+  (pedido) => pedido.usuarioEmail === usuarioAtual.email
+);
 
   if (!usuarioAtual.logado) return null;
 
@@ -49,14 +52,24 @@ export default function MinhaContaPage() {
           <div className={styles.userInfo}>
             <h2>{usuarioAtual.nome}</h2>
             <p className={styles.email}>{usuarioAtual.email}</p>
-            <span className={styles.planBadge}>
-              {PLANO_LABEL[usuarioAtual.plano]}
-            </span>
-          </div>
-        </section>
-
-        <section className={styles.historySection}>
-          <h3>Histórico Recente</h3>
+            </div>
+            <div className={styles.accountActions}>
+              <span className={styles.planBadge}>
+                {PLANO_LABEL[usuarioAtual.plano]}
+                </span>
+                <button
+                type="button"
+                className={styles.logoutButton}
+                onClick={handleLogout}>
+                  Sair da conta
+                  </button>
+                  </div>
+                  </section>
+        {pedidosDoUsuario.length === 0 ? (
+          <p className={styles.emptyHistory}>
+            Você ainda não possui pedidos finalizados.
+          </p>
+        ) : (
           <div className={styles.tableWrapper}>
             <table className={styles.historyTable}>
               <thead>
@@ -69,14 +82,20 @@ export default function MinhaContaPage() {
                 </tr>
               </thead>
               <tbody>
-                {MOCK_HISTORICO.map((pedido) => (
+                {pedidosDoUsuario.map((pedido) => (
                   <tr key={pedido.id}>
                     <td>{pedido.id}</td>
                     <td>{pedido.data}</td>
                     <td>{pedido.item}</td>
                     <td>{pedido.tipo}</td>
                     <td>
-                      <span className={`${styles.status} ${pedido.status === 'Entregue' ? styles.statusEntregue : styles.statusProcessando}`}>
+                      <span
+                        className={`${styles.status} ${
+                          pedido.status === "Entregue"
+                            ? styles.statusEntregue
+                            : styles.statusProcessando
+                        }`}
+                      >
                         {pedido.status}
                       </span>
                     </td>
@@ -85,7 +104,7 @@ export default function MinhaContaPage() {
               </tbody>
             </table>
           </div>
-        </section>
+        )}
       </main>
 
       <Footer />
