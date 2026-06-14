@@ -180,6 +180,28 @@ export function AuthProvider({ children }) {
     dispatch({ type: 'LOGOUT' })
   }
 
+  async function register(nome, email, password) {
+    dispatch({ type: 'CLEAR_ERROR' })
+
+    if (!nome || !email || !password) {
+      dispatch({
+        type: 'SET_ERROR',
+        payload: 'Preencha todos os campos.',
+      })
+      return false
+    }
+
+    // Simulando persistência do novo usuário
+    const newUser = {
+      id: Math.floor(Math.random() * 1000),
+      nome,
+      email,
+    }
+
+    await AsyncStorage.setItem('@MultiversoHQ:user', JSON.stringify(newUser))
+    return true
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -187,6 +209,7 @@ export function AuthProvider({ children }) {
         login,
         loginWithBiometrics,
         logout,
+        register,
       }}
     >
       {children}
