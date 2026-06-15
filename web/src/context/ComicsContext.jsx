@@ -78,6 +78,14 @@ export function calcularPrecoAluguel(usuario, publisherId) {
   return parseFloat((PRECO_ALUGUEL_CHEIO * (1 - DESCONTO_LOGIN)).toFixed(2));
 }
 
+export function calcularFrete(usuario) {
+  if (usuario?.logado && usuario?.plano !== null) {
+    return 0;
+  }
+
+  return PRECO_FRETE;
+}
+
 // ============================================================
 // API FETCH
 // ============================================================
