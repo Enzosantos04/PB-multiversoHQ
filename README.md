@@ -36,6 +36,7 @@ Este projeto foi realizado em grupo pelos alunos:
 * **Comic Vine API**: fonte de dados para o catálogo de quadrinhos.
 * **Context API**: gerenciamento de estado global.
 * **Formspree**: integração do formulário de contato.
+* **LocalStorage**: persistência local de dados como histórico de pedidos.
 
 ### 📱 Mobile
 
@@ -44,11 +45,12 @@ Este projeto foi realizado em grupo pelos alunos:
 * **Expo Router**: navegação baseada em arquivos.
 * **React Navigation**: suporte à navegação mobile.
 * **AsyncStorage**: armazenamento local no dispositivo.
-* **Context API**: gerenciamento global dos dados da aplicação.
+* **Context API**: gerenciamento global de autenticação, planos, carrinho e quadrinhos.
 * **Expo Vector Icons**: biblioteca de ícones para interface mobile.
 * **Expo Location**: recurso de localização do dispositivo.
 * **Expo Local Authentication**: autenticação com biometria.
 * **Expo Constants**: suporte a constantes e configurações do ambiente Expo.
+* **EAS Build**: geração de APK para Android.
 
 ---
 
@@ -60,14 +62,21 @@ Este projeto foi realizado em grupo pelos alunos:
 * **Busca Inteligente**: barra de pesquisa com sugestões em tempo real e redirecionamento direto.
 * **Página de Detalhes**: exibição de informações completas sobre cada quadrinho, incluindo capas e descrições.
 * **Sistema de Carrinho**: adição de itens para compra ou aluguel, com controle de quantidade.
-* **Login e Cadastro**: fluxo de autenticação mockado para simulação de usuários.
-* **Minha Conta**: área de usuário com informações e plano.
+* **Login e Cadastro**: fluxo de autenticação mockado.
+* **Cadastro com Login Automático**: após criar conta, o usuário já fica autenticado.
+* **Minha Conta**: área de usuário com nome, e-mail, plano ativo e botão para sair da conta.
+* **Assinatura de Planos**: usuários logados podem assinar planos Marvel, DC ou SuperHerói.
+* **Histórico de Pedidos**: pedidos finalizados ficam registrados na tela Minha Conta.
+* **Finalização protegida**: o usuário precisa estar logado para finalizar uma compra ou aluguel.
 * **Regras de Negócio de Planos**:
 
-  * Simulação de usuários com diferentes planos.
-  * Cálculo automático de descontos.
-  * Regras de frete e aluguel baseadas no perfil do usuário.
-* **Cálculo de Frete**: cálculo por CEP e localização.
+  * Usuário logado sem plano recebe desconto no aluguel.
+  * Plano Marvel cobre aluguel de quadrinhos Marvel.
+  * Plano DC cobre aluguel de quadrinhos DC.
+  * Plano SuperHerói cobre aluguel de quadrinhos Marvel e DC.
+  * Qualquer plano ativo possui frete grátis.
+  * Usuário sem plano paga frete fixo.
+* **Cálculo de Frete**: cálculo por CEP e localização, respeitando os benefícios do plano.
 * **Tema Dark/Light**: interface adaptável à preferência do usuário.
 * **Formulário de Contato**: envio de mensagens integrado com Formspree.
 * **Responsividade**: layout otimizado para desktop e dispositivos móveis.
@@ -80,10 +89,44 @@ Este projeto foi realizado em grupo pelos alunos:
 * **Detalhes de Quadrinhos**: visualização individual de cada item.
 * **Carrinho**: tela dedicada para itens selecionados.
 * **Cálculo de Frete**: cálculo por CEP e localização do dispositivo.
-* **Login**: tela de autenticação no app mobile.
+* **Login e Cadastro**: autenticação no app mobile.
+* **Cadastro com Login Automático**: após criar a conta, o usuário é autenticado e pode escolher um plano.
+* **Assinatura de Planos**: usuários autenticados podem assinar planos dentro do app.
+* **Sincronização de Usuário**: integração entre AuthContext e ComicsContext para manter plano, carrinho e frete consistentes.
 * **Biometria**: autenticação com recurso nativo do dispositivo.
 * **Rotas Protegidas**: controle de acesso às telas internas.
-* **Context API**: gerenciamento de dados globais de autenticação e quadrinhos.
+* **Compatibilidade Web/App**: fluxo de assinatura adaptado para APK e Expo Web.
+* **Context API**: gerenciamento de dados globais de autenticação, planos, carrinho e quadrinhos.
+
+---
+
+## 📋 Regras de Planos e Frete
+
+O projeto possui regras de negócio aplicadas tanto na versão Web quanto na versão Mobile.
+
+### Usuário sem plano
+
+* Pode navegar pelo catálogo.
+* Precisa estar logado para finalizar pedidos.
+* Paga frete fixo.
+* Recebe desconto no aluguel por estar logado.
+
+### Plano Marvel
+
+* Aluguel gratuito para quadrinhos Marvel.
+* Quadrinhos DC seguem a regra de aluguel comum.
+* Frete grátis.
+
+### Plano DC
+
+* Aluguel gratuito para quadrinhos DC.
+* Quadrinhos Marvel seguem a regra de aluguel comum.
+* Frete grátis.
+
+### Plano SuperHerói
+
+* Aluguel gratuito para quadrinhos Marvel e DC.
+* Frete grátis.
 
 ---
 
@@ -102,12 +145,13 @@ PB-multiversoHQ/
 
 * `web/src/components`: componentes reutilizáveis da aplicação web.
 * `web/src/pages`: páginas completas da aplicação web.
-* `web/src/context`: lógica global de dados e regras de negócio da web.
+* `web/src/context`: lógica global de dados, autenticação, carrinho, planos e regras de negócio da web.
 * `web/src/images`: assets visuais e logotipos da web.
 * `web/src/pages/modules`: estilos CSS específicos por página.
 * `mobile/app`: telas e rotas da aplicação mobile com Expo Router.
-* `mobile/context`: gerenciamento global de dados no mobile.
+* `mobile/context`: gerenciamento global de autenticação, quadrinhos, planos e carrinho no mobile.
 * `mobile/components`: componentes reutilizáveis da aplicação mobile.
+* `mobile/styles`: arquivos de estilo da aplicação mobile.
 * `mobile/assets`: imagens e ícones da aplicação mobile.
 
 ---
@@ -288,6 +332,55 @@ http://192.168.0.105:8081
 
 ---
 
+## 📦 Gerando APK com EAS Build
+
+A aplicação mobile possui configuração para build Android usando EAS.
+
+Acesse a pasta mobile:
+
+```bash
+cd mobile
+```
+
+Faça login no EAS:
+
+```bash
+eas login
+```
+
+Caso ainda não tenha configurado o projeto:
+
+```bash
+eas build:configure
+```
+
+Para gerar um APK de preview:
+
+```bash
+eas build -p android --profile preview
+```
+
+O arquivo `mobile/eas.json` deve conter um perfil `preview` configurado para gerar APK:
+
+```json
+{
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  }
+}
+```
+
+Ao final do processo, o EAS fornecerá um link para baixar e instalar o APK no dispositivo Android.
+
+> Observação: alterações feitas no código após a geração do APK exigem a criação de um novo build.
+
+---
+
 ## 🧪 Testes
 
 ### Mobile
@@ -363,6 +456,36 @@ npm run mobile
 
 ---
 
+## 🔒 Arquivos Ignorados no Git
+
+O projeto utiliza `.gitignore` para evitar o envio de arquivos sensíveis ou gerados automaticamente.
+
+Não devem ser enviados para o GitHub:
+
+```txt
+node_modules/
+web/node_modules/
+mobile/node_modules/
+.env
+web/.env
+mobile/.env
+.expo/
+mobile/.expo/
+dist/
+web/dist/
+mobile/dist/
+android/
+ios/
+mobile/android/
+mobile/ios/
+*.apk
+*.aab
+```
+
+Arquivos como `mobile/eas.json`, `mobile/app.json`, `web/package-lock.json` e `mobile/package-lock.json` podem ser versionados normalmente.
+
+---
+
 ## 📄 Licença
 
 Este projeto utiliza a licença MIT.
@@ -374,4 +497,5 @@ Este projeto utiliza a licença MIT.
 Este projeto foi desenvolvido para fins educacionais, como parte de um desafio acadêmico de desenvolvimento web e mobile.
 
 Sinta-se à vontade para explorar, estudar e aprender com o código.
+
 
